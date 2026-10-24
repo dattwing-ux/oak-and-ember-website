@@ -6,9 +6,9 @@ Target: $0/month inside Always Free. About 45 minutes end to end, most of it wai
 
 | Piece | Where | Cost |
 |---|---|---|
-| VM `VM.Standard.A1.Flex`, 2 OCPU / 12 GB, Ubuntu 24.04 minimal, Caddy | OCI | Free (Always Free: up to 4 OCPU / 24 GB, 200 GB storage, 10 TB egress) |
+| The existing `ebook-pipeline` A1 VM, nginx + certbot | OCI | Already running; $0 extra |
 | DNS, CDN, DDoS cover, email forwarding | Cloudflare (free plan) | Free |
-| HTTPS | Let's Encrypt via Caddy | Free |
+| HTTPS | Let's Encrypt via certbot | Free |
 | Deploys | GitHub Actions on push to `main` | Free |
 | `hello@oakandemberpress.com` | Cloudflare Email Routing → your Gmail | Free |
 
@@ -19,63 +19,49 @@ Target: $0/month inside Always Free. About 45 minutes end to end, most of it wai
 3. In **SSL/TLS → Overview**, set mode to **Full (strict)**. Caddy will hold a real certificate, so strict is correct.
 4. Leave the DNS records for later (step 3). Don't add an A record yet.
 
-## 2. The VM
+## 2. The VM — the existing `ebook-pipeline` instance (132.145.134.136)
 
-**Option B — reuse an existing VM (what we're doing).** Skip the console steps below. On your PC,
-make the deploy key, then copy the script and Caddyfile to the VM and run it:
+Ubuntu 24.04 on Ampere, nginx already on port 80, n8n in Docker on 5678. The site is served by
+that nginx; nothing about the pipeline changes. (`infra/alt-caddy/` keeps the fresh-VM recipe.)
 
+On the VM, as `ubuntu`:
 ```bash
-ssh-keygen -t ed25519 -C deploy@oakandemberpress -f ~/.ssh/oe_deploy -N ""
-scp infra/install-on-existing.sh infra/Caddyfile <you>@<vm>:/tmp/
-ssh <you>@<vm> 'sudo bash /tmp/install-on-existing.sh "$(cat)"' < ~/.ssh/oe_deploy.pub
+git clone https://github.com/dattwing-ux/oak-and-ember-website ~/oak-and-ember-website   # or git pull
+cd ~/oak-and-ember-website
+sudo bash infra/install-nginx.sh "<contents of oe_deploy.pub>"
 ```
-The script refuses to run if anything else owns ports 80/443 (n8n behind nginx/Traefik, for
-example). If it does, tell Claude what the listener is; the fix is either to put the site behind
-that proxy or to move the proxy behind Caddy. Then do **2b** (VCN ports) for that instance and
-continue at step 3 with the VM's public IP.
-
-**Option A — a fresh VM.**
-
-1. OCI Console → **Compute → Instances → Create instance**.
-2. Name: `oe-web`. Placement: any AD. If creation fails with *Out of host capacity*, pick another AD or retry later; A1 capacity comes and goes.
-3. Image: **Ubuntu 24.04 Minimal (aarch64)**. Shape: **Ampere → VM.Standard.A1.Flex**, 2 OCPUs, 12 GB.
-4. Networking: create a new VCN with internet connectivity (the wizard default), **assign a public IPv4**.
-5. SSH keys: generate a new pair for deploys on your machine:
-   ```bash
-   ssh-keygen -t ed25519 -C deploy@oakandemberpress -f ~/.ssh/oe_deploy
-   ```
-   Upload **your own** key for `ubuntu` login in the console as usual. The deploy key is separate.
-6. **Advanced options → Management → Cloud-init script**: paste `infra/cloud-init.yaml` with `DEPLOY_PUBKEY` replaced by the contents of `~/.ssh/oe_deploy.pub`.
-7. Create. Note the public IP.
+Then, once the A record resolves and the VCN ports are open (2b):
+```bash
+sudo certbot --nginx -d oakandemberpress.com -d www.oakandemberpress.com --redirect -m hello@oakandemberpress.com --agree-tos -n
+```
+certbot renews itself (systemd timer). Done when `curl -I https://oakandemberpress.com/` returns 200.
 
 ### 2b. Open the ports in the VCN
 
-Networking → Virtual cloud networks → your VCN → **Security Lists → Default** → Add ingress rules:
+OCI console (`cloud.oracle.com`) → Compute → Instances → `ebook-pipeline` → subnet link → Security
+Lists → Default → **Add Ingress Rules**:
 
 | Source | Protocol | Dest port |
 |---|---|---|
 | 0.0.0.0/0 | TCP | 80 |
 | 0.0.0.0/0 | TCP | 443 |
-| 0.0.0.0/0 | UDP | 443 (HTTP/3) |
 
-The OS firewall is handled by cloud-init. If `curl http://<ip>` still hangs after five minutes, SSH in and run `sudo iptables -L INPUT -n --line-numbers`; the ACCEPT rules for 80/443 must sit above the REJECT line.
-
-Smoke test: `curl -i http://<public-ip>/` returns `Oak & Ember Press — provisioning`.
+Port 80 may already be open if n8n or nginx is reached from the internet. 443 almost certainly is not.
 
 ## 3. DNS records (Cloudflare → DNS → Records)
 
 | Type | Name | Content | Proxy |
 |---|---|---|---|
-| A | `@` | `<public-ip>` | Proxied (orange) |
+| A | `@` | `132.145.134.136` | DNS only until certbot has run, then Proxied |
 | CNAME | `www` | `oakandemberpress.com` | Proxied |
 
-Caddy needs to reach Let's Encrypt on first start. With the proxy on, it uses the TLS-ALPN/HTTP challenge through Cloudflare, which works when the SSL mode is Full (strict). If issuance fails, temporarily switch both records to **DNS only**, let Caddy get its certificate, then re-enable the proxy.
+certbot needs Let's Encrypt to reach port 80 on the VM directly, so keep both records **DNS only** (grey cloud) until the certificate is issued, then switch them to **Proxied** (orange) for CDN and DDoS cover. Renewals work through the proxy.
 
 ## 4. GitHub secrets (repo → Settings → Secrets and variables → Actions)
 
 | Secret | Value |
 |---|---|
-| `OCI_HOST` | the public IP (not the domain; the proxy would intercept SSH) |
+| `OCI_HOST` | `132.145.134.136` (the IP, not the domain; the proxy would intercept SSH) |
 | `OCI_USER` | `deploy` |
 | `OCI_SSH_KEY` | contents of `~/.ssh/oe_deploy` (the private key) |
 
@@ -100,4 +86,4 @@ When the shop is earning, a real mailbox (Zoho Mail free tier, or Google Workspa
 
 ## 6. Rebuilding from nothing
 
-Terminate the VM, repeat step 2 with the same cloud-init, update the A record, re-run the Deploy workflow. Fifteen minutes.
+On any Ubuntu box with nginx: clone the repo, run `infra/install-nginx.sh`, run certbot, update the A record, re-run the Deploy workflow. Fifteen minutes. `infra/alt-caddy/` has a cloud-init for a fresh VM without nginx.

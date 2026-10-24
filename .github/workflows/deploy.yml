@@ -19,16 +19,15 @@ jobs:
       - name: Precompress static assets
         run: |
           find dist -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.svg' -o -name '*.json' -o -name '*.xml' -o -name '*.txt' \) \
-            -exec gzip -kf9 {} \; -exec brotli -kf -q 11 {} \;
+            -exec gzip -kf9 {} \;
       - name: Load deploy key
         env: { OCI_SSH_KEY: "${{ secrets.OCI_SSH_KEY }}", OCI_HOST: "${{ secrets.OCI_HOST }}" }
         run: |
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
           printf '%s\n' "$OCI_SSH_KEY" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H "$OCI_HOST" >> ~/.ssh/known_hosts
-      - name: Sync site and Caddyfile
+      - name: Sync site and reload nginx
         env: { OCI_HOST: "${{ secrets.OCI_HOST }}", OCI_USER: "${{ secrets.OCI_USER }}" }
         run: |
           rsync -az --delete --chmod=D755,F644 dist/ "$OCI_USER@$OCI_HOST:/srv/www/oakandemberpress.com/"
-          rsync -az infra/Caddyfile "$OCI_USER@$OCI_HOST:/home/$OCI_USER/Caddyfile"
-          ssh "$OCI_USER@$OCI_HOST" 'sudo /usr/bin/install -m 644 -o root -g root /home/'"$OCI_USER"'/Caddyfile /etc/caddy/Caddyfile && sudo /usr/bin/systemctl reload caddy'
+          ssh "$OCI_USER@$OCI_HOST" 'sudo /usr/bin/systemctl reload nginx'
