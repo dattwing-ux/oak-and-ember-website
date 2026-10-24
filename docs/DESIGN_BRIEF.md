@@ -5,9 +5,13 @@ Repo: `dattwing-ux/oak-and-ember-website` · Host: Oracle Cloud (pay-as-you-go a
 
 ## 1. What the site is for
 
-Oak & Ember Press sells printable binders, workbooks, planners and (soon) fiction on Etsy, with
-an animated kids' series on the side and AI workflows / pipeline tooling as the next line. The
-pipeline in `ebook-pipeline` produces every product and its gallery images automatically.
+Oak & Ember Press sells printable binders, workbooks, planners and recipe packs on Etsy, with AI
+workflows / pipeline tooling (Studio) as the next line. The pipeline in `ebook-pipeline` produces
+every product and its gallery images automatically.
+
+Archived and out of scope: the fiction line (novels, novellas) and the Crew kids' series. Neither
+appears on the site. The earlier brand strategy and voice documents still describe them; this brief
+supersedes those documents for the website.
 
 The site's one job: make a stranger who lands from Etsy, Pinterest or Instagram believe this
 is a real press with a point of view, then send them to the product. Secondary jobs: collect
@@ -18,10 +22,10 @@ emails, give the brand a home that isn't a marketplace, and later sell direct.
 1. **Most visitors are on a phone.** Etsy, Pinterest and Instagram referral traffic runs about
    70–80% mobile. The phone is the primary canvas. Desktop is the wider version of the phone
    layout, never the other way round.
-2. **The brand must not be tied to one product category or one place.** Today it is binders and
-   planners; next year it may be fiction, kids' animation and AI workflow products. The identity
-   has to hold all of them without a redesign. So the identity is the **ember**, not a shelf, a
-   landscape or a genre.
+2. **The brand must not be tied to one product category or one place.** Today it is binders,
+   planners and recipe packs; next it is AI workflow products. Lines have already been retired
+   once. The identity has to hold whatever comes without a redesign, and let a line leave without
+   a trace. So the identity is the **ember**, not a shelf, a landscape or a genre.
 
 ## 3. Brand facts the design honors
 
@@ -32,14 +36,14 @@ emails, give the brand a home that isn't a marketplace, and later sell direct.
 | Tagline | "Rooted in strength. Ignited by story." |
 | Voice | Warm but restrained. Concrete before abstract. Short sentences land. No filler. |
 | Audience | 28–55, buys beautiful useful objects, journaling, homemaking, makers, readers. |
-| Lines | Binders (8 live), Planners (live), Stories (first title in work), Studio = AI workflows and pipeline templates (next), Crew = kids' series (link out). |
+| Lines | Binders (8 live), Planners (live), Recipe packs (live), Studio = AI workflows and pipeline templates (next). |
 
 ## 4. The direction: One Spark
 
 The ember is a living particle field. On the landing page it **is** the brand mark: about two
 thousand embers hold the shape of the leaf and flame. As the thumb scrolls, the embers scatter and
-re-form into each line in turn, four stages: the mark, a binder (binders and planners), an open
-book (Stories), a workflow graph (Studio). Each stage has one short caption at the bottom of the
+re-form into each line in turn, four stages: the mark, a binder (binders and planners), a plate
+and cutlery (recipe packs), a workflow graph (Studio). Each stage has one short caption at the bottom of the
 screen, where the thumb is. Stage one carries a "Shop the press" door for buyers who did not come
 for the film; the last stage carries the call to action into the shop. A trust strip follows the
 scroller: titles live, sizes, editions, and the Etsy rating once the shop URL is known.
@@ -51,11 +55,11 @@ Why it is high impact and not a trick:
 - **Every page takes a hue.** Each line and each product has a color (binders already carry
   `cover.color` in their YAML). The ambient embers and the nav highlight tint to it, so a visitor
   always knows which part of the house they are in.
-- **A new line costs one color and one particle shape.** AI workflows, a kids' series, a cookbook:
-  anything joins by defining a shape the embers can form. Nothing in the identity says "paper
-  products" or names a region.
+- **A new line costs one color and one particle shape.** AI workflows, a cookbook, a course:
+  anything joins by defining a shape the embers can form, and a retired line leaves the same way.
+  Nothing in the identity says "paper products" or names a region.
 - **Thumb-reach navigation.** A bottom pill nav with the same four doors on every page: Home,
-  Shop, Stories, Studio. Desktop gets the same pill, wider. No hamburger.
+  Shop, Studio, About. Desktop gets the same pill, wider. No hamburger.
 
 ### Signature moments
 1. Load: the mark is already formed (no empty first frame). Embers breathe. Touch stirs them.
@@ -72,7 +76,7 @@ Why it is high impact and not a trick:
 Single committed dark look. **Oak is the ground, Ember is the light:** deep forest ground, cream
 ink, and exactly one luminous thing on screen. The embers are amber (`#E8A33D`) because the mark
 must read as fire; a burgundy test read as pink glitter under additive blending and contradicted
-the gold wordmark. Burgundy stays in the palette as the Stories hue and a product-page tint.
+the gold wordmark. Burgundy stays in the palette as a product-page tint.
 Headline legibility comes from layout, not color: captions sit in a scrim band at the bottom and
 the ambient field dims by half inside it. Line colors tint the embers, never the text.
 
@@ -90,19 +94,18 @@ Everything is driven by scroll position or touch; nothing autoplays except the s
 | Route | Purpose |
 |---|---|
 | `/` | Four-stage ember scroller → trust strip → lines row (swipe) → "it carries through" → newsletter |
-| `/shop/` | All lines. Filter chips: Binders · Planners · Stories · Studio |
+| `/shop/` | All lines. Filter chips: Binders · Planners · Recipe packs · Studio |
 | `/shop/<slug>/` | Product: gallery card in the ember field, description and "what's inside" from YAML, page count, Letter/A4, Standard/Large-print, Buy on Etsy |
-| `/stories/` | Fiction line. Holding page with a voice sample until the first title ships |
 | `/studio/` | AI workflows and pipeline tooling. Holding page: what's coming, email capture |
 | `/about/` | The press and how things are made (AI disclosure matches the listings) |
-| `/crew/` | Doorway to the kids' series; its own site later |
 | Newsletter | Form on the home page and in the footer. Provider TBD (Buttondown or MailerLite free tiers) |
 
 ## 6. Stack
 
 - **Astro 5**, static output, view transitions on, ember canvas marked `transition:persist`.
 - **Content from the pipeline.** `scripts/sync-catalog.mjs` reads
-  `../ebook-pipeline/templates/workbooks/*.yaml` and `output/<run>/previews/*.png`, writes
+  `../ebook-pipeline/templates/workbooks/*.yaml`, the recipe-pack and planner run manifests, and
+  `output/<run>/previews/*.png`, writes
   `src/content/products/*.json` and optimized WebP into `public/catalog/`. The pipeline stays the
   single source of truth; the site never hand-copies a product description.
 - Fonts self-hosted via `@fontsource` (two families, subset to Latin).
@@ -135,7 +138,7 @@ Domain: the strategy doc proposed `oakandemberpress.com`. Availability not check
 | M0 | Direction confirmed | Owner reply |
 | M1 | Astro scaffold, tokens, fonts, ember layer as a persistent island, bottom nav, four-stage scroller | Home renders on a phone at 60 fps; Lighthouse ≥ 90 |
 | M2 | `sync-catalog`, shop index, product pages for all 8 binders with real gallery cards | Every binder has a page with an Etsy link |
-| M3 | Stories, Studio and About holding pages, newsletter form, hue-per-page | Full v1 content |
+| M3 | Recipe packs index, Studio and About holding pages, newsletter form, hue-per-page | Full v1 content |
 | M4 | OCI VM, Caddy, GitHub Actions deploy, DNS, HTTPS | Live on the domain |
 | M5 | OG images, sitemap, Product structured data, Plausible, perf pass | Shared links look right on Pinterest/Instagram |
 
@@ -146,4 +149,7 @@ Domain: the strategy doc proposed `oakandemberpress.com`. Availability not check
 3. Etsy shop URL (for Buy buttons) and whether direct sales are v1 or v2.
 4. Newsletter provider preference, or none for launch.
 5. What should Studio promise at launch: a waitlist only, or named products (workflow templates, the render stack)?
-6. Should the catalog JSON be committed here (simplest for CI; my default) or should CI check out `ebook-pipeline` beside this repo?
+6. Does the tagline stay "Rooted in strength. Ignited by story." now that fiction is archived?
+   It still works as brand language (every product tells one), but it is the one place the word
+   "story" remains. Alternatives: "Ignited by craft." / "Ignited by purpose."
+7. Should the catalog JSON be committed here (simplest for CI; my default) or should CI check out `ebook-pipeline` beside this repo?
