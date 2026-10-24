@@ -67,8 +67,10 @@ Why it is high impact and not a trick:
 - Body and UI: **Source Sans 3**. Reads well at 17px on a dark phone screen; one family keeps the payload small.
 
 ### Color
-Single committed dark look: deep forest ground, cream ink, gold reserved for the mark, one
-italic word per screen, and highlights. Line colors tint the embers, never the text.
+Single committed dark look: deep forest ground, cream ink, gold reserved for the wordmark, one
+italic word per screen, and highlights. The embers themselves are **burgundy** (`#7A3345`, a
+lit shade of the brand's Muted Burgundy) so gold and cream type never competes with the field.
+A scrim darkens the caption band under the headline. Line colors tint the embers, never the text.
 
 ### Motion
 Everything is driven by scroll position or touch; nothing autoplays except the slow ember drift.
