@@ -21,6 +21,21 @@ Target: $0/month inside Always Free. About 45 minutes end to end, most of it wai
 
 ## 2. The VM
 
+**Option B — reuse an existing VM (what we're doing).** Skip the console steps below. On your PC,
+make the deploy key, then copy the script and Caddyfile to the VM and run it:
+
+```bash
+ssh-keygen -t ed25519 -C deploy@oakandemberpress -f ~/.ssh/oe_deploy -N ""
+scp infra/install-on-existing.sh infra/Caddyfile <you>@<vm>:/tmp/
+ssh <you>@<vm> 'sudo bash /tmp/install-on-existing.sh "$(cat)"' < ~/.ssh/oe_deploy.pub
+```
+The script refuses to run if anything else owns ports 80/443 (n8n behind nginx/Traefik, for
+example). If it does, tell Claude what the listener is; the fix is either to put the site behind
+that proxy or to move the proxy behind Caddy. Then do **2b** (VCN ports) for that instance and
+continue at step 3 with the VM's public IP.
+
+**Option A — a fresh VM.**
+
 1. OCI Console → **Compute → Instances → Create instance**.
 2. Name: `oe-web`. Placement: any AD. If creation fails with *Out of host capacity*, pick another AD or retry later; A1 capacity comes and goes.
 3. Image: **Ubuntu 24.04 Minimal (aarch64)**. Shape: **Ampere → VM.Standard.A1.Flex**, 2 OCPUs, 12 GB.
