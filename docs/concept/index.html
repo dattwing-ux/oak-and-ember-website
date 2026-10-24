@@ -39,14 +39,14 @@ p{margin:0}
 @supports (height:1svh){.story{height:430svh}}
 .stage{position:sticky;top:0;height:100vh;height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
 #morph{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:pan-y}
-.caps{position:relative;z-index:2;width:100%;padding-top:28px;padding-bottom:calc(112px + env(safe-area-inset-bottom,0px));display:grid;background:linear-gradient(180deg,rgba(7,17,14,0) 0%,rgba(7,17,14,.78) 22%,rgba(7,17,14,.92) 100%)}
+.caps{position:relative;z-index:2;width:100%;padding-top:28px;padding-bottom:calc(132px + env(safe-area-inset-bottom,0px));display:grid;background:linear-gradient(180deg,rgba(7,17,14,0) 0%,rgba(7,17,14,.78) 22%,rgba(7,17,14,.92) 100%)}
 .cap{grid-area:1/1;opacity:0;transform:translateY(10px);transition:opacity .35s,transform .35s;pointer-events:none}
 .cap.on{opacity:1;transform:none;pointer-events:auto}
 .cap .eyebrow{margin-bottom:10px}
 .cap p.sub{margin-top:12px;max-width:34ch;color:var(--ink-soft);font-size:clamp(16px,4.2vw,19px)}
 .cap .cta{display:inline-flex;align-items:center;gap:10px;margin-top:20px;font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:#20140a;background:var(--gold);padding:14px 22px}
 .cap .cta.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink-faint)}
-.hint{position:absolute;left:0;right:0;bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:2;text-align:center;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);transition:opacity .4s}
+.hint{position:absolute;left:0;right:0;bottom:calc(100px + env(safe-area-inset-bottom,0px));z-index:2;text-align:center;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);transition:opacity .4s}
 .hint.off{opacity:0}
 .dots{position:absolute;right:max(14px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);z-index:2;display:grid;gap:10px}
 .dots i{width:4px;height:4px;border-radius:50%;background:var(--ink-faint);transition:background .3s,height .3s}
