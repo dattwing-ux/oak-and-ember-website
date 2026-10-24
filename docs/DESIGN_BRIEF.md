@@ -36,11 +36,13 @@ emails, give the brand a home that isn't a marketplace, and later sell direct.
 
 ## 4. The direction: One Spark
 
-The ember is a living particle field. On the landing page it **is** the brand mark: two thousand
-embers hold the shape of the leaf and flame. As the thumb scrolls, the embers scatter and re-form
-into each product line in turn: a binder, a planner page, an open book, a workflow graph. Each
-stage has one short caption at the bottom of the screen, where the thumb is. The last stage
-carries the call to action into the shop.
+The ember is a living particle field. On the landing page it **is** the brand mark: about two
+thousand embers hold the shape of the leaf and flame. As the thumb scrolls, the embers scatter and
+re-form into each line in turn, four stages: the mark, a binder (binders and planners), an open
+book (Stories), a workflow graph (Studio). Each stage has one short caption at the bottom of the
+screen, where the thumb is. Stage one carries a "Shop the press" door for buyers who did not come
+for the film; the last stage carries the call to action into the shop. A trust strip follows the
+scroller: titles live, sizes, editions, and the Etsy rating once the shop URL is known.
 
 Why it is high impact and not a trick:
 - **It is the system, not a hero.** The ember layer is a persistent canvas. Astro view
@@ -57,7 +59,7 @@ Why it is high impact and not a trick:
 
 ### Signature moments
 1. Load: the mark is already formed (no empty first frame). Embers breathe. Touch stirs them.
-2. Scroll: five stages, each one gesture. Progress dots on the right edge.
+2. Scroll: four stages, each one gesture. Progress dots on the right edge.
 3. Tap a nav door or a product: embers gust and re-tint. Content slides under the same sky.
 4. Product page: the product's own gallery card (from pipeline step 07) sits in the ember field,
    tinted with its cover color. One primary button: Buy on Etsy.
@@ -67,10 +69,12 @@ Why it is high impact and not a trick:
 - Body and UI: **Source Sans 3**. Reads well at 17px on a dark phone screen; one family keeps the payload small.
 
 ### Color
-Single committed dark look: deep forest ground, cream ink, gold reserved for the wordmark, one
-italic word per screen, and highlights. The embers themselves are **burgundy** (`#7A3345`, a
-lit shade of the brand's Muted Burgundy) so gold and cream type never competes with the field.
-A scrim darkens the caption band under the headline. Line colors tint the embers, never the text.
+Single committed dark look. **Oak is the ground, Ember is the light:** deep forest ground, cream
+ink, and exactly one luminous thing on screen. The embers are amber (`#E8A33D`) because the mark
+must read as fire; a burgundy test read as pink glitter under additive blending and contradicted
+the gold wordmark. Burgundy stays in the palette as the Stories hue and a product-page tint.
+Headline legibility comes from layout, not color: captions sit in a scrim band at the bottom and
+the ambient field dims by half inside it. Line colors tint the embers, never the text.
 
 ### Motion
 Everything is driven by scroll position or touch; nothing autoplays except the slow ember drift.
@@ -85,7 +89,7 @@ Everything is driven by scroll position or touch; nothing autoplays except the s
 
 | Route | Purpose |
 |---|---|
-| `/` | The five-stage ember scroller → lines row (swipe) → "it carries through" → newsletter |
+| `/` | Four-stage ember scroller → trust strip → lines row (swipe) → "it carries through" → newsletter |
 | `/shop/` | All lines. Filter chips: Binders · Planners · Stories · Studio |
 | `/shop/<slug>/` | Product: gallery card in the ember field, description and "what's inside" from YAML, page count, Letter/A4, Standard/Large-print, Buy on Etsy |
 | `/stories/` | Fiction line. Holding page with a voice sample until the first title ships |
@@ -129,7 +133,7 @@ Domain: the strategy doc proposed `oakandemberpress.com`. Availability not check
 | Milestone | Scope | Done when |
 |---|---|---|
 | M0 | Direction confirmed | Owner reply |
-| M1 | Astro scaffold, tokens, fonts, ember layer as a persistent island, bottom nav, five-stage scroller | Home renders on a phone at 60 fps; Lighthouse ≥ 90 |
+| M1 | Astro scaffold, tokens, fonts, ember layer as a persistent island, bottom nav, four-stage scroller | Home renders on a phone at 60 fps; Lighthouse ≥ 90 |
 | M2 | `sync-catalog`, shop index, product pages for all 8 binders with real gallery cards | Every binder has a page with an Etsy link |
 | M3 | Stories, Studio and About holding pages, newsletter form, hue-per-page | Full v1 content |
 | M4 | OCI VM, Caddy, GitHub Actions deploy, DNS, HTTPS | Live on the domain |
