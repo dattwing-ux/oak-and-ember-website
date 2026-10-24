@@ -1,0 +1,56 @@
+---
+// The ambient ember field. One fixed canvas for the whole site; it persists across view
+// transitions and re-tints to the page's data-glow. Pure canvas 2D, no library.
+---
+<canvas id="ambient" aria-hidden="true" transition:persist="ember-layer"></canvas>
+<style>
+  #ambient { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+</style>
+<script>
+  import { hexToRgb, makeSprite, lit, toHex } from '../lib/embers';
+
+  type Ember = { x: number; y: number; r: number; v: number; s: number; a: number };
+  const w = window as unknown as { __oeAmbient?: { setGlow: (h: string) => void } };
+
+  function start() {
+    const cv = document.getElementById('ambient') as HTMLCanvasElement | null;
+    if (!cv) return;
+    const g = cv.getContext('2d')!;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const DPR = Math.min(devicePixelRatio || 1, 2);
+    let W = 0, H = 0;
+    let target = lit(hexToRgb(document.body.dataset.glow || '#E8A33D'));
+    document.documentElement.style.setProperty('--glow', toHex(target));
+    let cur = target.slice() as [number, number, number];
+    let sprite = makeSprite(cur);
+
+    const size = () => { W = cv.width = Math.floor(innerWidth * DPR); H = cv.height = Math.floor(innerHeight * DPR); };
+    size(); addEventListener('resize', size);
+
+    const spawn = (): Ember => ({ x: Math.random() * W, y: H + Math.random() * H * 0.2, r: (0.5 + Math.random() * 1.4) * DPR, v: (0.12 + Math.random() * 0.3) * DPR, s: Math.random() * 100, a: 0.25 + Math.random() * 0.5 });
+    const P: Ember[] = [];
+    for (let i = 0; i < 70; i++) { const e = spawn(); e.y = Math.random() * H; P.push(e); }
+
+    function frame(now: number) {
+      for (let c = 0; c < 3; c++) cur[c] += (target[c] - cur[c]) * 0.04;
+      if (Math.abs(cur[0] - target[0]) + Math.abs(cur[1] - target[1]) + Math.abs(cur[2] - target[2]) > 1.5) sprite = makeSprite(cur.map(Math.round) as [number, number, number]);
+      g.clearRect(0, 0, W, H); g.globalCompositeOperation = 'lighter';
+      const dimFrom = H * 0.58;
+      for (let i = 0; i < P.length; i++) {
+        let p = P[i]; p.y -= p.v; p.x += Math.sin(now / 1100 + p.s) * 0.2 * DPR;
+        if (p.y < -20) P[i] = p = spawn();
+        g.globalAlpha = p.a * (0.6 + 0.4 * Math.sin(now / 400 + p.s)) * (p.y > dimFrom ? 0.45 : 1);
+        const r = p.r * 4; g.drawImage(sprite, p.x - r, p.y - r, r * 2, r * 2);
+      }
+      g.globalAlpha = 1; g.globalCompositeOperation = 'source-over';
+      if (!reduced) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+
+    w.__oeAmbient = { setGlow(h: string) { target = lit(hexToRgb(h)); document.documentElement.style.setProperty('--glow', toHex(target)); } };
+  }
+
+  if (!w.__oeAmbient) start();
+  // Every page declares its hue on <body data-glow>; re-tint after each navigation.
+  document.addEventListener('astro:page-load', () => w.__oeAmbient?.setGlow(document.body.dataset.glow || '#E8A33D'));
+</script>

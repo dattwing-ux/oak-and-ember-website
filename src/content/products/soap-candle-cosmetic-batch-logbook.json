@@ -1,0 +1,35 @@
+{
+  "slug": "soap-candle-cosmetic-batch-logbook",
+  "line": "binders",
+  "title": "Soap, Candle & Cosmetic Maker's Batch & Cure Logbook",
+  "subtitle": "Blank Cold & Hot Process Soap Logs, Candle Pour & Burn-Test Trackers, Balm & Salve Batch Sheets, Cure Rack Logs & COGS Ledgers",
+  "description": "",
+  "color": "#463C36",
+  "previews": [],
+  "sections": 30,
+  "sizes": [
+    "Letter",
+    "A4"
+  ],
+  "editions": [
+    "Standard",
+    "Large print"
+  ],
+  "tags": [
+    "soap making logbook",
+    "candle maker journal",
+    "batch record book",
+    "cold process soap",
+    "candle burn test log",
+    "cosmetic batch log",
+    "tallow balm planner",
+    "cure rack tracker",
+    "maker business log",
+    "craft business cogs",
+    "fragrance oil log",
+    "large print binder",
+    "printable workbook"
+  ],
+  "gallery": [],
+  "sourceSpec": "templates/workbooks/soap-candle-cosmetic-batch-logbook.yaml"
+}

@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+---
+<Base nav="about" glow="#C8A96E" title="About" description="Oak and Ember Press is an independent press making printable binders, planners and recipe packs.">
+  <main class="wrap page-pad">
+    <p class="eyebrow">About</p>
+    <h1>An independent press.</h1>
+    <div class="cols">
+      <p class="measure lead">Oak and Ember Press makes useful, beautiful things to print and keep. Binders that bring order to the parts of life that don't come with one. Planners with room to think. Recipes laid out to be cooked from. Each one is produced in two sizes and two editions, so it prints clean on whatever paper you have.</p>
+      <div class="facts">
+        <div><b>Oak</b><span>Made carefully. Built to last.</span></div>
+        <div><b>Ember</b><span>The spark that takes new forms.</span></div>
+        <div><b>How it's made</b><span>Every product runs through our own pipeline, which uses AI tooling for drafting and layout under human direction and review. Listings carry the disclosure each platform requires.</span></div>
+        <div><b>Write to us</b><span><a href={`mailto:${site.email}`}>{site.email}</a></span></div>
+      </div>
+    </div>
+  </main>
+</Base>
+<style>
+  h1 { margin: 10px 0 24px; }
+  .lead { font-size: 18px; }
+  .cols { display: grid; gap: 30px; }
+  @media (min-width: 760px) { .cols { grid-template-columns: 1.3fr 1fr; } }
+  .facts { display: grid; gap: 14px; }
+  .facts div { border-top: 1px solid var(--ink-faint); padding-top: 12px; display: grid; gap: 4px; }
+  .facts b { font-family: var(--display); font-weight: 500; font-size: 22px; }
+  .facts span { font-size: 15px; color: var(--ink-soft); }
+</style>

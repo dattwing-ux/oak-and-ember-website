@@ -1,0 +1,51 @@
+/* Oak & Ember Press — One Spark design system.
+   Oak is the ground, Ember is the light: deep forest ground, cream ink, one luminous thing per screen. */
+@import '@fontsource/cormorant-garamond/500.css';
+@import '@fontsource/cormorant-garamond/500-italic.css';
+@import '@fontsource/source-sans-3/400.css';
+@import '@fontsource/source-sans-3/600.css';
+
+:root {
+  --bg: #07110E; --bg-2: #0F2C23;
+  --ink: #F2E7D2; --ink-soft: rgba(242,231,210,.68); --ink-faint: rgba(242,231,210,.14);
+  --gold: #C8A96E; --gold-hi: #F1DFB0; --gold-deep: #8F7442;
+  --glow: #E8A33D;              /* the ember; pages and lines re-tint it */
+  --display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --ui: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  --nav-h: calc(72px + env(safe-area-inset-bottom, 0px));
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--ui); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: hidden; min-height: 100svh; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 10; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+p { margin: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; letter-spacing: -.01em; line-height: 1.02; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(40px, 10vw, 88px); }
+h2 { font-size: clamp(34px, 8vw, 64px); }
+h3 { font-size: clamp(24px, 5.6vw, 32px); }
+em { font-style: italic; color: var(--gold); }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .85em; color: var(--gold-hi); }
+
+.wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); }
+.muted { color: var(--ink-soft); }
+.measure { max-width: 58ch; }
+section { position: relative; z-index: 1; padding-block: clamp(44px, 9vw, 96px); }
+.head { display: grid; gap: 12px; margin-bottom: clamp(22px, 5vw, 36px); }
+
+.cta { display: inline-flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; text-decoration: none; color: #20140a; background: var(--gold); padding: 14px 22px; transition: transform .2s, background .2s; }
+.cta:hover { transform: translateY(-2px); background: var(--gold-hi); }
+.cta.ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink-faint); }
+.cta.ghost:hover { background: rgba(242,231,210,.06); border-color: var(--ink-soft); }
+.cta[aria-disabled="true"] { opacity: .5; pointer-events: none; }
+
+.page-pad { padding-top: 24px; padding-bottom: calc(var(--nav-h) + 24px); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }

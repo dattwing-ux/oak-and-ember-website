@@ -1,0 +1,115 @@
+---
+// The home-page scroller: four stages, one gesture each. The ember mark forms, then re-forms
+// into a binder, a plate, and a workflow graph. Captions live at the bottom, in thumb reach.
+import site from '../data/site.json';
+const stages = [
+  { eyebrow: 'One spark. Many forms.', html: 'Rooted in strength.<br>Ignited by <em>purpose</em>.', sub: site.description, cta: { href: '/shop/', label: 'Shop the press', ghost: true }, h1: true },
+  { eyebrow: 'Binders & planners', html: "Order for the parts of life that don't come with one.", sub: 'Eight binders and a planner line. Print at home, fill in by hand. Letter and A4, standard and large print.' },
+  { eyebrow: 'Recipe packs', html: 'Recipes meant to be <em>used</em>.', sub: 'Collections laid out to print, cook from and keep. Two pages a recipe. Letter and A4.' },
+  { eyebrow: 'Studio · coming', html: 'The workflows <em>behind</em> the press.', sub: 'The same pipeline that makes every product, offered as tools and templates for other makers.', cta: { href: '/shop/', label: 'Enter the shop' } },
+];
+---
+<div class="story" id="story">
+  <div class="stage" id="stage">
+    <canvas id="morph" aria-label="Embers forming the brand mark, then each product line as you scroll"></canvas>
+    <div class="dots" id="dots" aria-hidden="true">{stages.map((_, i) => <i class:list={{ on: i === 0 }}></i>)}</div>
+    <p class="hint" id="hint">Scroll · the embers follow</p>
+    <div class="wrap caps" id="caps">
+      {stages.map((s, i) => (
+        <div class:list={['cap', { on: i === 0 }]}>
+          <p class="eyebrow">{s.eyebrow}</p>
+          {s.h1 ? <h1 set:html={s.html} /> : <h2 set:html={s.html} />}
+          <p class="sub">{s.sub}</p>
+          {s.cta && <a class:list={['cta', { ghost: s.cta.ghost }]} href={s.cta.href}>{s.cta.label}</a>}
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+<style>
+  .story { position: relative; height: 430vh; }
+  @supports (height: 1svh) { .story { height: 430svh; } }
+  .stage { position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+  @supports (height: 1svh) { .stage { height: 100svh; } }
+  #morph { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: pan-y; }
+  .caps { width: 100%; padding-top: 28px; padding-bottom: calc(var(--nav-h) + 60px); display: grid; background: linear-gradient(180deg, rgba(7,17,14,0) 0%, rgba(7,17,14,.78) 22%, rgba(7,17,14,.92) 100%); }
+  .cap { grid-area: 1 / 1; opacity: 0; transform: translateY(10px); transition: opacity .35s, transform .35s; pointer-events: none; }
+  .cap.on { opacity: 1; transform: none; pointer-events: auto; }
+  .cap .eyebrow { margin-bottom: 10px; }
+  .cap .sub { margin-top: 12px; max-width: 34ch; color: var(--ink-soft); font-size: clamp(16px, 4.2vw, 19px); }
+  .cap .cta { margin-top: 20px; }
+  .hint { position: absolute; left: 0; right: 0; bottom: calc(var(--nav-h) + 28px); z-index: 2; text-align: center; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft); transition: opacity .4s; }
+  .hint.off { opacity: 0; }
+  .dots { position: absolute; right: var(--gutter-r); top: 50%; transform: translateY(-50%); z-index: 2; display: grid; gap: 10px; }
+  .dots i { width: 4px; height: 4px; border-radius: 50%; background: var(--ink-faint); transition: background .3s, height .3s; }
+  .dots i.on { background: var(--gold); height: 18px; border-radius: 2px; }
+</style>
+<script>
+  import { STAGE_SHAPES, samplePoints, fitPoints, makeSprite, hexToRgb } from '../lib/embers';
+
+  function init() {
+    const cv = document.getElementById('morph') as HTMLCanvasElement | null;
+    const stage = document.getElementById('stage'), story = document.getElementById('story');
+    if (!cv || !stage || !story || (cv as any).__init) return;
+    (cv as any).__init = true;
+    const g = cv.getContext('2d')!;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const DPR = Math.min(devicePixelRatio || 1, 2);
+    const SP = makeSprite(hexToRgb('#E8A33D'));
+
+    const raw = STAGE_SHAPES.map(d => samplePoints(d));
+    const N = Math.min(2400, Math.max(...raw.map(r => r.length)));
+    const T = raw.map(r => fitPoints(r, N));
+
+    // Real mark: crop the leaf and flame out of the wordmark PNG and drop the letters under it.
+    const img = new Image(); img.src = '/brand/oak-ember-logo-gold.png';
+    img.onload = () => {
+      const pts = samplePoints((gg, SZ) => { gg.drawImage(img, 372, 0, 165, 250, 60, 30, 300, 360); gg.clearRect(0, 246, 168, SZ); gg.clearRect(290, 246, SZ, SZ); gg.clearRect(0, 330, SZ, SZ); });
+      if (pts.length > 200) T[0] = fitPoints(pts, N);
+    };
+
+    let W = 0, H = 0, scale = 1;
+    const px = new Float32Array(N), py = new Float32Array(N), seed = new Float32Array(N), sz = new Float32Array(N);
+    for (let i = 0; i < N; i++) { seed[i] = Math.random() * 1000; sz[i] = 0.9 + Math.random() * 1.6; }
+    let placed = false;
+    const size = () => { const r = stage.getBoundingClientRect(); W = cv.width = Math.floor(r.width * DPR); H = cv.height = Math.floor(r.height * DPR); scale = Math.min(W * 0.9, H * 0.5); };
+    size(); addEventListener('resize', size);
+
+    const ptr = { x: -1e9, y: -1e9 };
+    cv.addEventListener('pointermove', e => { const r = cv.getBoundingClientRect(); ptr.x = (e.clientX - r.left) * DPR; ptr.y = (e.clientY - r.top) * DPR; }, { passive: true });
+    cv.addEventListener('pointerleave', () => { ptr.x = -1e9; });
+
+    const caps = document.querySelectorAll('.cap'), dots = document.querySelectorAll('#dots i'), hint = document.getElementById('hint')!;
+    const K = T.length; let cur = -1;
+    const progress = () => { const r = story.getBoundingClientRect(); const sh = stage.getBoundingClientRect().height; return Math.max(0, Math.min(1, -r.top / (r.height - sh))); };
+    const ease = (t: number) => t * t * (3 - 2 * t);
+
+    function frame(now: number) {
+      if (!document.body.contains(cv)) return;            // page navigated away mid-frame
+      let p = progress(); if (!Number.isFinite(p)) p = 0;  // stage has no height during a transition
+      const s = p * (K - 1); let i = Math.floor(s), f = s - i; if (i >= K - 1) { i = K - 1; f = 0; }
+      const fe = ease(f), burst = Math.sin(f * Math.PI), k = Math.round(s);
+      if (k !== cur) { cur = k; caps.forEach((c, j) => c.classList.toggle('on', j === k)); dots.forEach((d, j) => d.classList.toggle('on', j === k)); }
+      hint.classList.toggle('off', p > 0.04);
+      const cx = W / 2, cy = H * 0.34, A = T[i], B = T[Math.min(i + 1, K - 1)];
+      g.clearRect(0, 0, W, H); g.globalCompositeOperation = 'lighter';
+      for (let n = 0; n < N; n++) {
+        let tx = (A[n * 2] * (1 - fe) + B[n * 2] * fe) * scale + cx, ty = (A[n * 2 + 1] * (1 - fe) + B[n * 2 + 1] * fe) * scale + cy;
+        const ang = seed[n] + now * 0.0004, drift = burst * scale * 0.22;
+        tx += Math.cos(ang) * drift + Math.sin(now * 0.0011 + seed[n]) * 1.6 * DPR;
+        ty += Math.sin(ang * 1.3) * drift + Math.cos(now * 0.0009 + seed[n]) * 1.6 * DPR - burst * scale * 0.08;
+        if (!placed) { px[n] = tx; py[n] = ty; }
+        const dx = px[n] - ptr.x, dy = py[n] - ptr.y, d2 = dx * dx + dy * dy, R = 90 * DPR;
+        if (d2 < R * R) { const d = Math.sqrt(d2) || 1, push = (1 - d / R) * 26 * DPR; tx += dx / d * push; ty += dy / d * push; }
+        px[n] += (tx - px[n]) * (reduced ? 1 : 0.085); py[n] += (ty - py[n]) * (reduced ? 1 : 0.085);
+        const r = sz[n] * DPR * (1 + burst * 0.6) * 1.7;
+        g.globalAlpha = 0.55 + 0.45 * Math.sin(now * 0.003 + seed[n]); g.drawImage(SP, px[n] - r, py[n] - r, r * 2, r * 2);
+      }
+      placed = true; g.globalAlpha = 1; g.globalCompositeOperation = 'source-over';
+      if (!reduced) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+    if (reduced) addEventListener('scroll', () => requestAnimationFrame(frame), { passive: true });
+  }
+  document.addEventListener('astro:page-load', init);
+</script>

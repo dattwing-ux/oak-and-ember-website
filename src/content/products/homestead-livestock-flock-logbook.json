@@ -1,0 +1,35 @@
+{
+  "slug": "homestead-livestock-flock-logbook",
+  "line": "binders",
+  "title": "Homestead Livestock, Backyard Flock & Small Farm Record Book",
+  "subtitle": "Herd & Flock Registries, Breeding & Incubation Trackers, Egg & Dairy Yield Logs, Pasture Rotation Grids & Feed Expense Ledgers",
+  "description": "",
+  "color": "#8E3B2C",
+  "previews": [],
+  "sections": 30,
+  "sizes": [
+    "Letter",
+    "A4"
+  ],
+  "editions": [
+    "Standard",
+    "Large print"
+  ],
+  "tags": [
+    "livestock logbook",
+    "homestead binder",
+    "chicken flock log",
+    "goat breeding log",
+    "small farm planner",
+    "egg production log",
+    "farm record book",
+    "pasture rotation",
+    "herd management",
+    "rabbitry binder",
+    "farm expense log",
+    "large print binder",
+    "printable workbook"
+  ],
+  "gallery": [],
+  "sourceSpec": "templates/workbooks/homestead-livestock-flock-logbook.yaml"
+}

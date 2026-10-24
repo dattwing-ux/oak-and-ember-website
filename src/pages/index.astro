@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import Scroller from '../components/Scroller.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import LinesRow from '../components/LinesRow.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { getCollection } from 'astro:content';
+const featured = (await getCollection('products')).sort((a, b) => a.data.title.localeCompare(b.data.title)).slice(0, 4);
+---
+<Base nav="home" glow="#E8A33D">
+  <Scroller />
+  <div class="wrap">
+    <TrustStrip />
+    <section id="lines">
+      <div class="head">
+        <p class="eyebrow">What the spark makes</p>
+        <h2>One mark. Any number of lines.</h2>
+      </div>
+      <LinesRow />
+    </section>
+    <section id="featured">
+      <div class="head">
+        <p class="eyebrow">From the shelf</p>
+        <h2>Binders in print.</h2>
+      </div>
+      <div class="grid">{featured.map(p => <ProductCard product={p} />)}</div>
+      <p class="more"><a class="cta ghost" href="/shop/">See every title</a></p>
+    </section>
+  </div>
+</Base>
+<style>
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 24px 18px; }
+  .more { margin-top: 28px; padding-bottom: var(--nav-h); }
+</style>

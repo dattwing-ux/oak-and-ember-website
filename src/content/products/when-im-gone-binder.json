@@ -1,0 +1,41 @@
+{
+  "slug": "when-im-gone-binder",
+  "line": "binders",
+  "title": "Estate & Legacy Organizer Binder",
+  "subtitle": "Everything your family will need, in one place",
+  "description": "A printable estate, eldercare and digital-legacy organizer. Record where every important document lives, who to call, how bills and accounts are handled, and your final wishes — so the people you love aren't left searching.",
+  "color": "#2E3F55",
+  "previews": [
+    "First 48 Hours Emergency Checklist",
+    "Vital Documents Locator",
+    "Digital Vault & Master Access Instructions",
+    "Funeral, Burial / Cremation & Memorial Wishes",
+    "Recurring Household Bills & Utilities Matrix"
+  ],
+  "sections": 30,
+  "sizes": [
+    "Letter",
+    "A4"
+  ],
+  "editions": [
+    "Standard",
+    "Large print"
+  ],
+  "tags": [
+    "estate planning",
+    "estate planner",
+    "legacy binder",
+    "final wishes",
+    "emergency binder",
+    "executor binder",
+    "eldercare binder",
+    "funeral planner",
+    "end of life planner",
+    "family records",
+    "death binder",
+    "what if binder",
+    "legacy planner"
+  ],
+  "gallery": [],
+  "sourceSpec": "templates/workbooks/when-im-gone-binder.yaml"
+}

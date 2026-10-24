@@ -1,0 +1,35 @@
+{
+  "slug": "home-inventory-disaster-vault",
+  "line": "binders",
+  "title": "Home Inventory, Insurance Claim & Emergency Evacuation Binder",
+  "subtitle": "Room-by-Room Asset & Serial Number Registries, Evacuation Grab Lists, Utility Shutoff Maps & Post-Disaster Claim Trackers",
+  "description": "",
+  "color": "#6B2E2E",
+  "previews": [],
+  "sections": 30,
+  "sizes": [
+    "Letter",
+    "A4"
+  ],
+  "editions": [
+    "Standard",
+    "Large print"
+  ],
+  "tags": [
+    "home inventory log",
+    "emergency binder",
+    "insurance claim log",
+    "evacuation checklist",
+    "disaster prepper",
+    "household inventory",
+    "serial number log",
+    "family emergency",
+    "homeowner binder",
+    "fire safety planner",
+    "property record log",
+    "large print binder",
+    "printable workbook"
+  ],
+  "gallery": [],
+  "sourceSpec": "templates/workbooks/home-inventory-disaster-vault.yaml"
+}

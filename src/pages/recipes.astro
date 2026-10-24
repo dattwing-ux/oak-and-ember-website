@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+---
+<Base nav="shop" glow="#8E3B2C" title="Recipe packs" description="Printable recipe collections laid out to print, cook from and keep.">
+  <main class="wrap page-pad">
+    <p class="eyebrow">Recipe packs</p>
+    <h1>Recipes meant to be <em>used</em>.</h1>
+    <p class="measure muted lead">Collections with a contents page and two pages a recipe: ingredients and method on one spread, no scrolling, no ads. Rendered for Letter and A4 so they print clean at home.</p>
+    <div class="buy">
+      {site.etsyShopUrl ? <a class="cta" href={site.etsyShopUrl} rel="noopener">Browse on Etsy</a> : <a class="cta" aria-disabled="true" href="#">Browse on Etsy · opening soon</a>}
+    </div>
+    <p class="muted small">Individual packs appear here once the catalog sync covers recipe runs.</p>
+  </main>
+</Base>
+<style>
+  h1 { margin: 10px 0 18px; }
+  .lead { font-size: 18px; }
+  .buy { margin-top: 26px; }
+  .small { font-size: 13px; margin-top: 18px; }
+</style>

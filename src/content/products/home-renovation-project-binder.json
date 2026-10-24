@@ -1,0 +1,41 @@
+{
+  "slug": "home-renovation-project-binder",
+  "line": "binders",
+  "title": "Home Renovation Project Binder",
+  "subtitle": "Bids, budget, permits, specs and punch list in one place",
+  "description": "A printable renovation and remodel organizer for homeowners, DIYers and house-flippers. Compare contractor bids, track the budget against actual spend, log permits and inspections, record every paint code, SKU and serial number, and close the project out with a punch list and warranty handover.",
+  "color": "#2F5D62",
+  "previews": [
+    "Contractor Bid Comparison Matrix",
+    "Master Budget vs. Actual Cost Tracker",
+    "Electrical Panel & Circuit Breaker Directory",
+    "Paint & Stain Color Schedule",
+    "Final Walkthrough & Contractor Punch List"
+  ],
+  "sections": 30,
+  "sizes": [
+    "Letter",
+    "A4"
+  ],
+  "editions": [
+    "Standard",
+    "Large print"
+  ],
+  "tags": [
+    "renovation planner",
+    "home renovation",
+    "remodel planner",
+    "renovation binder",
+    "contractor binder",
+    "home project planner",
+    "home remodel binder",
+    "kitchen remodel",
+    "bathroom remodel",
+    "budget tracker",
+    "punch list",
+    "house flipping",
+    "diy home projects"
+  ],
+  "gallery": [],
+  "sourceSpec": "templates/workbooks/home-renovation-project-binder.yaml"
+}

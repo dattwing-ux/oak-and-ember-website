@@ -33,7 +33,7 @@ emails, give the brand a home that isn't a marketplace, and later sell direct.
 |---|---|
 | Palette | Deep Forest `#0F2C23` · Warm Oak `#4A3728` · Ember Gold `#C9A961` · Soft Cream `#FDF8F0` · Muted Burgundy `#6B2D3C` |
 | Logo | Gold oak leaf with a single flame, serif wordmark. Measured gold: `#C8A96E`. |
-| Tagline | "Rooted in strength. Ignited by story." |
+| Tagline | "Rooted in strength. Ignited by purpose." (owner decision 2026-10-24; replaces "Ignited by story") |
 | Voice | Warm but restrained. Concrete before abstract. Short sentences land. No filler. |
 | Audience | 28–55, buys beautiful useful objects, journaling, homemaking, makers, readers. |
 | Lines | Binders (8 live), Planners (live), Recipe packs (live), Studio = AI workflows and pipeline templates (next). |
@@ -129,27 +129,23 @@ Pay-as-you-go accounts keep the Always Free allowances, so v1 should cost $0/mon
 `infra/` will hold: `cloud-init.yaml` (installs Caddy, creates the deploy user, opens ports),
 `Caddyfile`, and `PROVISION.md` with the console clicks.
 
-Domain: the strategy doc proposed `oakandemberpress.com`. Availability not checked from here.
+Domain: `oakandemberpress.com` (owned). Email on the domain is part of M4; see `infra/PROVISION.md`.
 
 ## 8. Build plan
 
 | Milestone | Scope | Done when |
 |---|---|---|
 | M0 | Direction confirmed | Owner reply |
-| M1 | Astro scaffold, tokens, fonts, ember layer as a persistent island, bottom nav, four-stage scroller | Home renders on a phone at 60 fps; Lighthouse ≥ 90 |
-| M2 | `sync-catalog`, shop index, product pages for all 8 binders with real gallery cards | Every binder has a page with an Etsy link |
+| M1 ✅ | Astro scaffold, tokens, fonts, ember layer as a persistent island, bottom nav, four-stage scroller | Done 2026-10-24: 14 pages build, phone walk-through clean |
+| M2 ◐ | `sync-catalog`, shop index, product pages for all 8 binders with real gallery cards | Pages and sync done; gallery cards land when `sync-catalog` runs beside a pipeline `output/`; Etsy links when the shop opens |
 | M3 | Recipe packs index, Studio and About holding pages, newsletter form, hue-per-page | Full v1 content |
-| M4 | OCI VM, Caddy, GitHub Actions deploy, DNS, HTTPS | Live on the domain |
+| M4 ◐ | OCI VM, Caddy, GitHub Actions deploy, DNS, HTTPS, domain email | Code and runbook done (`infra/`); owner runs the console steps |
 | M5 | OG images, sitemap, Product structured data, Plausible, perf pass | Shared links look right on Pinterest/Instagram |
 
 ## 9. Open questions for the owner
 
 1. Direction confirmed?
-2. Domain: `oakandemberpress.com`, or something already registered?
-3. Etsy shop URL (for Buy buttons) and whether direct sales are v1 or v2.
-4. Newsletter provider preference, or none for launch.
-5. What should Studio promise at launch: a waitlist only, or named products (workflow templates, the render stack)?
-6. Does the tagline stay "Rooted in strength. Ignited by story." now that fiction is archived?
-   It still works as brand language (every product tells one), but it is the one place the word
-   "story" remains. Alternatives: "Ignited by craft." / "Ignited by purpose."
-7. Should the catalog JSON be committed here (simplest for CI; my default) or should CI check out `ebook-pipeline` beside this repo?
+2. Etsy shop URL once the shop exists (for Buy buttons) and whether direct sales are v1 or v2.
+3. Newsletter provider preference, or none for launch.
+4. What should Studio promise at launch: a waitlist only, or named products (workflow templates, the render stack)?
+5. Should the catalog JSON be committed here (simplest for CI; my default) or should CI check out `ebook-pipeline` beside this repo?

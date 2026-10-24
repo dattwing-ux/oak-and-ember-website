@@ -1,0 +1,18 @@
+---
+import site from '../data/site.json';
+---
+<div class="wrap">
+  <div class="top">
+    <a href="/" class="logo-link" aria-label={`${site.name} home`}>
+      <img class="logo" src="/brand/oak-ember-logo-gold.png" alt={site.name} width="903" height="418" decoding="async" fetchpriority="high">
+    </a>
+    <a class="pill" href="/shop/">Shop</a>
+  </div>
+</div>
+<style>
+  .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-block: 14px; background: linear-gradient(180deg, rgba(7,17,14,.92), rgba(7,17,14,0)); }
+  .logo-link { display: block; line-height: 0; }
+  .logo { height: 34px; width: auto; }
+  .pill { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; border: 1px solid var(--ink-faint); padding: 7px 12px; color: var(--ink-soft); text-decoration: none; }
+  .pill:hover { color: var(--ink); border-color: var(--ink-soft); }
+</style>

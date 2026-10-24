@@ -1,0 +1,10 @@
+{
+  "name": "Oak and Ember Press",
+  "shortName": "Oak & Ember",
+  "tagline": "Rooted in strength. Ignited by purpose.",
+  "description": "An independent press. Printable binders, planners, recipe packs, and the tools that make them.",
+  "domain": "oakandemberpress.com",
+  "etsyShopUrl": "",
+  "email": "hello@oakandemberpress.com",
+  "formats": { "sizes": ["Letter", "A4"], "editions": ["Standard", "Large print"] }
+}

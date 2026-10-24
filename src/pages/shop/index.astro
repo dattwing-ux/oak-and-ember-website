@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import lines from '../../data/lines.json';
+import { getCollection } from 'astro:content';
+const products = (await getCollection('products')).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const chips = Object.entries(lines).filter(([id]) => id !== 'studio');
+---
+<Base nav="shop" glow="#2E3F55" title="Shop" description="Printable binders, planners and recipe packs. Letter and A4, standard and large print.">
+  <main class="wrap page-pad">
+    <p class="eyebrow">Shop</p>
+    <h1>Every title, one shelf.</h1>
+    <div class="chips" role="tablist" aria-label="Filter by line">
+      <button class="chip on" data-line="all" role="tab" aria-selected="true">All</button>
+      {chips.map(([id, l]) => <button class="chip" data-line={id} role="tab" aria-selected="false" style={`--c:${l.color}`}>{l.name}</button>)}
+    </div>
+    <div class="grid" id="grid">{products.map(p => <div data-line={p.data.line}><ProductCard product={p} /></div>)}</div>
+    <p class="empty muted" id="empty" hidden>Nothing in this line is on the site yet. It is on Etsy; the catalog sync will bring it here.</p>
+  </main>
+</Base>
+<style>
+  h1 { font-size: clamp(36px, 8vw, 64px); margin: 10px 0 22px; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 26px; }
+  .chip { font: inherit; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); background: transparent; border: 1px solid var(--ink-faint); padding: 8px 12px; cursor: pointer; }
+  .chip.on { color: var(--ink); border-color: var(--c, var(--gold)); box-shadow: inset 0 -2px 0 var(--c, var(--gold)); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); gap: 24px 18px; }
+  .empty { margin-top: 20px; }
+</style>
+<script>
+  function init() {
+    const chips = document.querySelectorAll<HTMLButtonElement>('.chip'), cards = document.querySelectorAll<HTMLElement>('#grid > [data-line]'), empty = document.getElementById('empty');
+    if (!chips.length) return;
+    const apply = (line: string) => {
+      let shown = 0;
+      cards.forEach(c => { const on = line === 'all' || c.dataset.line === line; c.hidden = !on; if (on) shown++; });
+      chips.forEach(c => { const on = c.dataset.line === line; c.classList.toggle('on', on); c.setAttribute('aria-selected', String(on)); });
+      if (empty) empty.hidden = shown > 0;
+      const glow = (document.querySelector<HTMLElement>(`.chip[data-line="${line}"]`)?.style.getPropertyValue('--c') || '#2E3F55').trim();
+      (window as any).__oeAmbient?.setGlow(glow);
+    };
+    chips.forEach(c => c.addEventListener('click', () => apply(c.dataset.line || 'all')));
+    const q = new URLSearchParams(location.search).get('line'); if (q) apply(q);
+  }
+  document.addEventListener('astro:page-load', init);
+</script>

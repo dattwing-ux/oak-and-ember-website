@@ -1,0 +1,35 @@
+{
+  "slug": "family-genealogy-research-binder",
+  "line": "binders",
+  "title": "Family Genealogy, Ancestral Research & Archive Field Binder",
+  "subtitle": "Pedigree Charts, Family Group Sheets, Census Extraction Matrices, Courthouse & Cemetery Field Logs, and Source Citation Trackers",
+  "description": "",
+  "color": "#4E3550",
+  "previews": [],
+  "sections": 30,
+  "sizes": [
+    "Letter",
+    "A4"
+  ],
+  "editions": [
+    "Standard",
+    "Large print"
+  ],
+  "tags": [
+    "genealogy binder",
+    "family tree log",
+    "ancestor workbook",
+    "family history log",
+    "census research log",
+    "cemetery field log",
+    "pedigree chart",
+    "family group sheet",
+    "lineage organizer",
+    "archive research",
+    "oral history log",
+    "large print binder",
+    "printable workbook"
+  ],
+  "gallery": [],
+  "sourceSpec": "templates/workbooks/family-genealogy-research-binder.yaml"
+}

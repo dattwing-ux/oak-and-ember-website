@@ -1,0 +1,34 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency: { group: deploy, cancel-in-progress: true }
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run build
+      - name: Precompress static assets
+        run: |
+          find dist -type f \( -name '*.html' -o -name '*.css' -o -name '*.js' -o -name '*.svg' -o -name '*.json' -o -name '*.xml' -o -name '*.txt' \) \
+            -exec gzip -kf9 {} \; -exec brotli -kf -q 11 {} \;
+      - name: Load deploy key
+        env: { OCI_SSH_KEY: "${{ secrets.OCI_SSH_KEY }}", OCI_HOST: "${{ secrets.OCI_HOST }}" }
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$OCI_SSH_KEY" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$OCI_HOST" >> ~/.ssh/known_hosts
+      - name: Sync site and Caddyfile
+        env: { OCI_HOST: "${{ secrets.OCI_HOST }}", OCI_USER: "${{ secrets.OCI_USER }}" }
+        run: |
+          rsync -az --delete --chmod=D755,F644 dist/ "$OCI_USER@$OCI_HOST:/srv/www/oakandemberpress.com/"
+          rsync -az infra/Caddyfile "$OCI_USER@$OCI_HOST:/home/$OCI_USER/Caddyfile"
+          ssh "$OCI_USER@$OCI_HOST" 'sudo /usr/bin/install -m 644 -o root -g root /home/'"$OCI_USER"'/Caddyfile /etc/caddy/Caddyfile && sudo /usr/bin/systemctl reload caddy'

@@ -1,0 +1,35 @@
+{
+  "slug": "homestead-preservation-logbook",
+  "line": "binders",
+  "title": "Homestead Food Preservation, Canning & Freeze-Drying Logbook",
+  "subtitle": "Pressure & Water-Bath Canning Batch Logs, Freeze-Dryer Cycle Trackers, Dehydrating & Fermenting Sheets, and Pantry FIFO Inventory",
+  "description": "",
+  "color": "#3E5A3C",
+  "previews": [],
+  "sections": 30,
+  "sizes": [
+    "Letter",
+    "A4"
+  ],
+  "editions": [
+    "Standard",
+    "Large print"
+  ],
+  "tags": [
+    "canning logbook",
+    "freeze drying log",
+    "food preservation",
+    "homestead planner",
+    "pantry inventory",
+    "pressure canning",
+    "water bath canning",
+    "freezer inventory",
+    "root cellar log",
+    "prepper pantry",
+    "fermentation log",
+    "large print binder",
+    "printable workbook"
+  ],
+  "gallery": [],
+  "sourceSpec": "templates/workbooks/homestead-preservation-logbook.yaml"
+}

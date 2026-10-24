@@ -1,0 +1,39 @@
+---
+interface Props { active?: string }
+const { active = 'home' } = Astro.props;
+const items = [
+  { id: 'home',   href: '/',        label: 'Home',   glow: '#E8A33D', d: 'M12 3c1 3 4 4 4 8a4 4 0 0 1-8 0c0-2 1-3 1-3s1 2 2 2c0-3 0-5 1-7z' },
+  { id: 'shop',   href: '/shop/',   label: 'Shop',   glow: '#2E3F55', d: 'M5 4.5A1.5 1.5 0 0 1 6.5 3h11A1.5 1.5 0 0 1 19 4.5v15a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 19.5zM8 3v18M11 8h5M11 12h5' },
+  { id: 'studio', href: '/studio/', label: 'Studio', glow: '#4FB3A9', d: 'M6 8.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4zM18 8.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4zM12 20.2a2.2 2.2 0 1 0 0-4.4 2.2 2.2 0 0 0 0 4.4zM8 7l3 9M16 7l-3 9M8 6h8' },
+  { id: 'about',  href: '/about/',  label: 'About',  glow: '#C8A96E', d: 'M12 21c-4-3-7-7-7-11a7 7 0 0 1 14 0c0 4-3 8-7 11zM12 6v8M9 10c1 1 2 1.5 3 1.5s2-.5 3-1.5' },
+];
+---
+<nav class="nav" aria-label="Site" transition:persist="bottom-nav">
+  <ul>
+    {items.map(it => (
+      <li><a href={it.href} class:list={{ on: it.id === active }} data-nav-id={it.id} data-glow={it.glow} aria-current={it.id === active ? 'page' : undefined}>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d={it.d}/></svg>{it.label}
+      </a></li>
+    ))}
+  </ul>
+</nav>
+<style>
+  .nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 9; display: flex; justify-content: center; padding: 0 var(--gutter-r) calc(12px + env(safe-area-inset-bottom, 0px)) var(--gutter-l); pointer-events: none; }
+  ul { pointer-events: auto; list-style: none; margin: 0; padding: 6px; display: flex; gap: 4px; background: rgba(7,17,14,.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(242,231,210,.16); border-radius: 999px; box-shadow: 0 20px 50px -20px rgba(0,0,0,.8); }
+  a { display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 68px; padding: 8px 10px; border-radius: 999px; text-decoration: none; color: var(--ink-soft); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; transition: color .25s, background .25s; }
+  svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  a.on { color: var(--glow); background: rgba(242,231,210,.06); }
+  @media (min-width: 760px) { a { flex-direction: row; gap: 8px; min-width: 0; padding: 9px 16px; font-size: 12px; } }
+</style>
+<script>
+  // Keep the highlighted door in sync after view transitions (the nav element itself persists).
+  function sync() {
+    const id = document.body.dataset.nav || 'home';
+    document.querySelectorAll<HTMLAnchorElement>('.nav a[data-nav-id]').forEach(a => {
+      const on = a.dataset.navId === id;
+      a.classList.toggle('on', on);
+      if (on) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
+    });
+  }
+  document.addEventListener('astro:page-load', sync);
+</script>

@@ -1,0 +1,18 @@
+---
+import site from '../data/site.json';
+import { getCollection } from 'astro:content';
+const binders = (await getCollection('products')).filter(p => p.data.line === 'binders').length;
+---
+<div class="trust" aria-label="At a glance">
+  <span><b>{binders}</b> binder titles live</span>
+  <span><b>{site.formats.sizes.length}</b> sizes · {site.formats.sizes.join(' & ')}</span>
+  <span><b>{site.formats.editions.length}</b> editions · {site.formats.editions.join(' & ').toLowerCase()}</span>
+  {site.etsyShopUrl ? <span><b>★</b> <a href={site.etsyShopUrl} rel="noopener">Rated on Etsy</a></span> : <span class="todo"><b>★</b> Etsy rating · when the shop opens</span>}
+</div>
+<style>
+  .trust { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--ink-faint); border: 1px solid var(--ink-faint); margin-top: 28px; font-size: 13px; color: var(--ink-soft); }
+  @media (min-width: 760px) { .trust { grid-template-columns: repeat(4, 1fr); } }
+  span { background: var(--bg); padding: 14px; display: flex; gap: 10px; align-items: baseline; min-width: 0; }
+  b { font-family: var(--display); font-weight: 500; font-size: 26px; line-height: 1; color: var(--ink); }
+  .todo { opacity: .55; }
+</style>

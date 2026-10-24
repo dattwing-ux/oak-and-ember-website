@@ -1,0 +1,35 @@
+{
+  "slug": "sourdough-micro-bakery-binder",
+  "line": "binders",
+  "title": "Sourdough Micro-Bakery & Cottage Food Command Binder",
+  "subtitle": "Bake-Day Production Timelines, Levain & Fermentation Logs, Oven Rotation Grids, Pre-Order Checklists & Cottage Law Trackers",
+  "description": "",
+  "color": "#7A4E2D",
+  "previews": [],
+  "sections": 30,
+  "sizes": [
+    "Letter",
+    "A4"
+  ],
+  "editions": [
+    "Standard",
+    "Large print"
+  ],
+  "tags": [
+    "sourdough planner",
+    "cottage food binder",
+    "micro bakery log",
+    "home bakery planner",
+    "bakers percentage",
+    "porch pickup tracker",
+    "farmers market log",
+    "sourdough starter",
+    "bake day timeline",
+    "bakery order form",
+    "recipe cost log",
+    "large print planner",
+    "printable workbook"
+  ],
+  "gallery": [],
+  "sourceSpec": "templates/workbooks/sourdough-micro-bakery-binder.yaml"
+}

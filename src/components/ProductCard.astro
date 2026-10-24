@@ -1,0 +1,28 @@
+---
+import type { CollectionEntry } from 'astro:content';
+interface Props { product: CollectionEntry<'products'> }
+const { product } = Astro.props;
+const p = product.data;
+---
+<a class="card" href={`/shop/${p.slug}/`} style={`--c:${p.color}`}>
+  <div class="cover">
+    {p.gallery[0] ? <img src={p.gallery[0]} alt="" loading="lazy" decoding="async" width="3000" height="2250"> : <div class="spine"><span>{p.title}</span></div>}
+  </div>
+  <div class="meta">
+    <b>{p.title}</b>
+    <span>{p.subtitle}</span>
+    <small>{p.sizes.join(' · ')} · {p.editions.join(' · ')}</small>
+  </div>
+</a>
+<style>
+  .card { display: grid; gap: 12px; text-decoration: none; color: inherit; min-width: 0; }
+  .cover { aspect-ratio: 4 / 3; max-width: 100%; background: linear-gradient(160deg, color-mix(in srgb, var(--c) 85%, white), color-mix(in srgb, var(--c) 70%, black)); border: 1px solid var(--ink-faint); overflow: hidden; display: grid; place-items: center; position: relative; transition: transform .3s, box-shadow .3s; }
+  .card:hover .cover { transform: translateY(-3px); box-shadow: 0 30px 50px -30px color-mix(in srgb, var(--c) 60%, transparent); }
+  .cover img { width: 100%; height: 100%; object-fit: cover; }
+  .spine { width: 62%; height: 78%; background: color-mix(in srgb, var(--c) 92%, black); box-shadow: inset 6px 0 0 rgba(255,255,255,.08), 0 20px 40px -20px rgba(0,0,0,.8); display: grid; place-items: center; padding: 14px; }
+  .spine span { font-family: var(--display); font-weight: 500; font-size: clamp(16px, 2vw, 22px); line-height: 1.1; text-align: center; color: var(--gold-hi); }
+  .meta { display: grid; gap: 4px; }
+  b { font-family: var(--display); font-weight: 500; font-size: 24px; line-height: 1.1; }
+  span { font-size: 14.5px; color: var(--ink-soft); }
+  small { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+</style>

@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../data/site.json';
+---
+<Base nav="studio" glow="#4FB3A9" title="Studio" description="The workflows and render stack behind Oak and Ember Press, offered as tools for other makers.">
+  <main class="wrap page-pad">
+    <p class="eyebrow">Studio · coming</p>
+    <h1>The workflows <em>behind</em> the press.</h1>
+    <p class="measure muted lead">Every binder, planner and recipe pack on this site is produced by one pipeline: a spec in, a print-ready PDF out in two sizes and two editions, with listing copy and gallery cards. Studio is that pipeline, offered as tools and templates for other makers.</p>
+    <div class="list">
+      <div><b>Spec-driven binders</b><span>Describe sections as tables, fields, checklists and grids. The render handles the layout.</span></div>
+      <div><b>Two sizes, two editions</b><span>Letter and A4, standard and large print, from the same spec.</span></div>
+      <div><b>Listing and gallery</b><span>Etsy copy, SEO block and 3000×2250 preview cards, generated with the product.</span></div>
+    </div>
+    <form class="wait" id="waitlist" novalidate>
+      <label for="email" class="sr-only">Email</label>
+      <input id="email" type="email" placeholder="you@example.com" autocomplete="email" inputmode="email">
+      <button type="submit" class="cta">Join the waitlist</button>
+    </form>
+    <p class="muted small" id="wait-ok" hidden>Thank you. You'll hear from {site.email} when Studio opens.</p>
+  </main>
+</Base>
+<style>
+  h1 { margin: 10px 0 18px; }
+  .lead { font-size: 18px; }
+  .list { display: grid; gap: 14px; margin-top: 30px; }
+  @media (min-width: 760px) { .list { grid-template-columns: repeat(3, 1fr); } }
+  .list div { border-top: 1px solid var(--ink-faint); padding-top: 12px; display: grid; gap: 6px; }
+  .list b { font-family: var(--display); font-weight: 500; font-size: 22px; }
+  .list span { font-size: 15px; color: var(--ink-soft); }
+  .wait { display: flex; margin-top: 30px; max-width: 460px; }
+  .wait input { flex: 1; min-width: 0; font: inherit; font-size: 15px; padding: 13px 16px; background: rgba(242,231,210,.06); border: 1px solid rgba(242,231,210,.28); color: var(--ink); border-right: 0; }
+  .wait input::placeholder { color: rgba(242,231,210,.45); }
+  .small { font-size: 13px; margin-top: 12px; }
+</style>
+<script>
+  // Waitlist posts nowhere yet. Wire to the newsletter provider in M3; until then, confirm locally.
+  document.addEventListener('astro:page-load', () => {
+    const f = document.getElementById('waitlist') as HTMLFormElement | null; if (!f) return;
+    f.addEventListener('submit', e => { e.preventDefault(); const ok = document.getElementById('wait-ok'); if (ok) ok.hidden = false; });
+  });
+</script>

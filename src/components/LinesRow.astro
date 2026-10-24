@@ -1,0 +1,22 @@
+---
+import lines from '../data/lines.json';
+const items = Object.entries(lines);
+---
+<div class="lines">
+  {items.map(([id, l]) => (
+    <a class="line" href={l.href} style={`--c:${l.color}`} data-line={id}>
+      <b>{l.name}</b><span>{l.blurb}</span>
+      <small>{l.status === 'live' ? 'live' : 'next'}</small>
+    </a>
+  ))}
+</div>
+<style>
+  .lines { scroll-snap-type: x mandatory; display: flex; gap: 12px; overflow-x: auto; padding: 4px 0 18px; margin: 0 calc(-1 * var(--gutter-r)) 0 calc(-1 * var(--gutter-l)); padding-left: var(--gutter-l); padding-right: var(--gutter-r); scrollbar-width: none; }
+  .lines::-webkit-scrollbar { display: none; }
+  .line { scroll-snap-align: start; flex: 0 0 min(78vw, 320px); min-width: 0; border: 1px solid var(--ink-faint); background: linear-gradient(160deg, rgba(242,231,210,.05), rgba(242,231,210,.012)); padding: 20px 18px 22px; display: flex; flex-direction: column; gap: 10px; position: relative; text-decoration: none; color: inherit; transition: border-color .25s, transform .25s; }
+  .line::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 2px; background: var(--c, var(--gold)); }
+  .line:hover { border-color: var(--ink-soft); transform: translateY(-2px); }
+  b { font-family: var(--display); font-weight: 500; font-size: 28px; line-height: 1; }
+  span { font-size: 14.5px; color: var(--ink-soft); }
+  small { margin-top: auto; padding-top: 8px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); }
+</style>

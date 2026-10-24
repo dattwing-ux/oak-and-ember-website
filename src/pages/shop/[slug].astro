@@ -1,0 +1,59 @@
+---
+import Base from '../../layouts/Base.astro';
+import site from '../../data/site.json';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map(p => ({ params: { slug: p.data.slug }, props: { product: p } }));
+}
+const { product } = Astro.props;
+const p = product.data;
+const buy = p.etsyUrl || site.etsyShopUrl;
+const ld = { '@context': 'https://schema.org', '@type': 'Product', name: p.title, description: p.description, brand: { '@type': 'Brand', name: site.name }, image: p.gallery.map(g => new URL(g, Astro.site).toString()) };
+---
+<Base nav="shop" glow={p.color} title={p.title} description={p.description || p.subtitle} ogImage={p.gallery[0] || '/og-default.png'}>
+  <main class="wrap page-pad product" style={`--c:${p.color}`}>
+    <p class="eyebrow"><a href="/shop/">Shop</a> · Binders</p>
+    <h1>{p.title}</h1>
+    <p class="sub">{p.subtitle}</p>
+    <div class="hero">
+      {p.gallery[0] ? <img src={p.gallery[0]} alt={`${p.title} preview`} width="3000" height="2250" decoding="async" fetchpriority="high"> : <div class="spine"><span>{p.title}</span></div>}
+    </div>
+    <div class="buy">
+      {buy ? <a class="cta" href={buy} rel="noopener">Buy on Etsy</a> : <a class="cta" aria-disabled="true" href="#">Buy on Etsy · opening soon</a>}
+      <span class="facts">{p.sizes.join(' & ')} · {p.editions.join(' & ').toLowerCase()} · instant download</span>
+    </div>
+    <div class="cols">
+      <div>
+        <h3>What it is</h3>
+        <p class="measure">{p.description}</p>
+      </div>
+      {p.previews.length > 0 && <div>
+        <h3>Inside</h3>
+        <ul>{p.previews.map(x => <li>{x}</li>)}</ul>
+        {p.sections > 0 && <p class="muted small">{p.sections} sections in all.</p>}
+      </div>}
+    </div>
+    {p.gallery.length > 1 && <div class="gallery">{p.gallery.slice(1).map(g => <img src={g} alt="" loading="lazy" decoding="async" width="3000" height="2250">)}</div>}
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </main>
+</Base>
+<style>
+  .eyebrow a { text-decoration: none; }
+  h1 { font-size: clamp(34px, 7.5vw, 60px); margin-top: 10px; }
+  .sub { margin-top: 10px; color: var(--ink-soft); max-width: 60ch; }
+  .hero { margin-top: 26px; aspect-ratio: 4 / 3; max-width: 100%; border: 1px solid var(--ink-faint); background: linear-gradient(160deg, color-mix(in srgb, var(--c) 85%, white), color-mix(in srgb, var(--c) 70%, black)); display: grid; place-items: center; overflow: hidden; box-shadow: 0 40px 80px -40px color-mix(in srgb, var(--c) 70%, transparent); }
+  .hero img { width: 100%; height: 100%; object-fit: cover; }
+  .spine { width: 56%; height: 78%; background: color-mix(in srgb, var(--c) 92%, black); box-shadow: inset 8px 0 0 rgba(255,255,255,.08); display: grid; place-items: center; padding: 18px; }
+  .spine span { font-family: var(--display); font-size: clamp(18px, 3vw, 30px); line-height: 1.1; text-align: center; color: var(--gold-hi); }
+  .buy { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-top: 22px; }
+  .facts { font-size: 13px; color: var(--ink-soft); letter-spacing: .04em; }
+  .cols { display: grid; gap: 28px; margin-top: 40px; }
+  @media (min-width: 760px) { .cols { grid-template-columns: 1.2fr 1fr; } }
+  h3 { margin-bottom: 10px; }
+  ul { margin: 0; padding-left: 18px; color: var(--ink-soft); display: grid; gap: 6px; }
+  .small { font-size: 13px; margin-top: 10px; }
+  .gallery { display: grid; gap: 14px; margin-top: 36px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
+  .gallery img { border: 1px solid var(--ink-faint); }
+</style>

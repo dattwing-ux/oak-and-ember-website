@@ -1,0 +1,43 @@
+#cloud-config
+# Oak & Ember Press web host — paste into the OCI "Cloud-init script" box when creating the VM.
+# Ubuntu 24.04 minimal, VM.Standard.A1.Flex (Always Free). Replace DEPLOY_PUBKEY before use.
+package_update: true
+package_upgrade: true
+packages: [debian-keyring, debian-archive-keyring, apt-transport-https, curl, rsync, ufw]
+
+users:
+  - name: deploy
+    groups: [www-data]
+    shell: /bin/bash
+    sudo: false
+    ssh_authorized_keys:
+      - DEPLOY_PUBKEY
+
+write_files:
+  - path: /etc/caddy/Caddyfile
+    permissions: '0644'
+    content: |
+      # placeholder; the real Caddyfile is rsynced from infra/ by the deploy workflow
+      :80 {
+        respond "Oak & Ember Press — provisioning" 200
+      }
+
+runcmd:
+  # Caddy from its official apt repo
+  - curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+  - curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
+  - apt-get update && apt-get install -y caddy
+  # Site root owned by the deploy user, readable by Caddy
+  - mkdir -p /srv/www/oakandemberpress.com /var/log/caddy
+  - chown -R deploy:www-data /srv/www
+  - chmod -R 755 /srv/www
+  - chown caddy:caddy /var/log/caddy
+  # Allow deploy to reload Caddy after an rsync without a password
+  - echo 'deploy ALL=(root) NOPASSWD: /usr/bin/systemctl reload caddy, /usr/bin/install -m 644 -o root -g root /home/deploy/Caddyfile /etc/caddy/Caddyfile' > /etc/sudoers.d/deploy-caddy
+  - chmod 440 /etc/sudoers.d/deploy-caddy
+  # Oracle's Ubuntu images ship with iptables rules that drop 80/443. Open them and persist.
+  - iptables -I INPUT 6 -m state --state NEW -p tcp --dport 80 -j ACCEPT
+  - iptables -I INPUT 6 -m state --state NEW -p tcp --dport 443 -j ACCEPT
+  - iptables -I INPUT 6 -m state --state NEW -p udp --dport 443 -j ACCEPT
+  - netfilter-persistent save || (apt-get install -y iptables-persistent && netfilter-persistent save)
+  - systemctl enable --now caddy

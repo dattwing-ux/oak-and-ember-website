@@ -1,0 +1,6 @@
+{
+  "binders":  { "name": "Binders",      "color": "#2E3F55", "blurb": "Order for the parts of life that don't come with one. Print at home, fill in by hand.", "status": "live",  "href": "/shop/?line=binders" },
+  "planners": { "name": "Planners",     "color": "#C8A96E", "blurb": "Monthly, weekly, habit and notes pages. Dated or undated.", "status": "live", "href": "/shop/?line=planners" },
+  "recipes":  { "name": "Recipe packs", "color": "#8E3B2C", "blurb": "Collections laid out to print, cook from and keep. Two pages a recipe.", "status": "live", "href": "/recipes/" },
+  "studio":   { "name": "Studio",       "color": "#4FB3A9", "blurb": "The workflows and render stack behind the press, offered as tools for other makers.", "status": "next", "href": "/studio/" }
+}
