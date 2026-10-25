@@ -80,7 +80,7 @@ if (!(await exists(specsDir))) {
 await mkdir(outDir, { recursive: true });
 
 const files = (await readdir(specsDir)).filter(f => f.endsWith('.yaml') || f.endsWith('.yml'));
-let written = 0;
+const synced = new Set();   // slugs written this run
 for (const f of files) {
   const spec = parse(await readFile(join(specsDir, f), 'utf8'));
   const specName = basename(f).replace(/\.ya?ml$/, '');
@@ -106,7 +106,7 @@ for (const f of files) {
     sourceSpec: `templates/workbooks/${f}`,
   };
   await writeFile(join(outDir, `${slug}.json`), JSON.stringify(product, null, 2) + '\n');
-  written++;
+  synced.add(slug);
 }
 
 // Bundles: several finished binders sold as one listing (steps/bundle.py). Gallery from output/bundles/<product>/previews.
@@ -125,7 +125,17 @@ if (await exists(bundlesDir)) {
       sourceSpec: `templates/bundles/${f}`,
     };
     await writeFile(join(outDir, `${slug}.json`), JSON.stringify(product, null, 2) + '\n');
-    written++;
+    synced.add(slug);
   }
 }
-console.log(JSON.stringify({ ok: true, products: written, gallery_dirs: (await exists(publicDir)) ? (await readdir(publicDir)).length : 0 }));
+// Drop products (and their cards) that no spec produces any more, e.g. after a spec rename.
+const pruned = [];
+for (const f of (await readdir(outDir)).filter(f => f.endsWith('.json'))) {
+  if (!synced.has(f.replace(/\.json$/, ''))) { await rm(join(outDir, f)); pruned.push(f); }
+}
+if (await exists(publicDir)) {
+  for (const d of await readdir(publicDir)) {
+    if (!synced.has(d)) await rm(join(publicDir, d), { recursive: true, force: true });
+  }
+}
+console.log(JSON.stringify({ ok: true, products: synced.size, pruned, gallery_dirs: (await exists(publicDir)) ? (await readdir(publicDir)).length : 0 }));

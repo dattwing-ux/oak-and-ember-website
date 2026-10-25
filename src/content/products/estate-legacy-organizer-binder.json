@@ -1,5 +1,5 @@
 {
-  "slug": "when-im-gone-binder",
+  "slug": "estate-legacy-organizer-binder",
   "line": "binders",
   "title": "Estate & Legacy Organizer Binder",
   "subtitle": "Everything your family will need, in one place",
@@ -37,16 +37,16 @@
     "legacy planner"
   ],
   "gallery": [
-    "/catalog/when-im-gone-binder/01-included.webp",
-    "/catalog/when-im-gone-binder/02-cover.webp",
-    "/catalog/when-im-gone-binder/03-contents.webp",
-    "/catalog/when-im-gone-binder/04-first-48-hours-emergency-checklist.webp",
-    "/catalog/when-im-gone-binder/05-vital-documents-locator.webp",
-    "/catalog/when-im-gone-binder/06-recurring-household-bills-utilities-matrix.webp",
-    "/catalog/when-im-gone-binder/07-digital-vault-master-access-instructions.webp",
-    "/catalog/when-im-gone-binder/08-funeral-burial-cremation-memorial-wishes.webp"
+    "/catalog/estate-legacy-organizer-binder/01-included.webp",
+    "/catalog/estate-legacy-organizer-binder/02-cover.webp",
+    "/catalog/estate-legacy-organizer-binder/03-contents.webp",
+    "/catalog/estate-legacy-organizer-binder/04-first-48-hours-emergency-checklist.webp",
+    "/catalog/estate-legacy-organizer-binder/05-vital-documents-locator.webp",
+    "/catalog/estate-legacy-organizer-binder/06-recurring-household-bills-utilities-matrix.webp",
+    "/catalog/estate-legacy-organizer-binder/07-digital-vault-master-access-instructions.webp",
+    "/catalog/estate-legacy-organizer-binder/08-funeral-burial-cremation-memorial-wishes.webp"
   ],
   "kind": "binder",
   "includes": [],
-  "sourceSpec": "templates/workbooks/when-im-gone-binder.yaml"
+  "sourceSpec": "templates/workbooks/estate-legacy-organizer-binder.yaml"
 }
