@@ -3,7 +3,7 @@
   "line": "binders",
   "title": "Soap, Candle & Cosmetic Maker's Batch & Cure Logbook",
   "subtitle": "Blank Cold & Hot Process Soap Logs, Candle Pour & Burn-Test Trackers, Balm & Salve Batch Sheets, Cure Rack Logs & COGS Ledgers",
-  "description": "",
+  "description": "Producing consistent, high-quality small-batch soap, candles, tallow balms, salves, and botanical body care requires disciplined batch documentation—from exact gram weights and lot numbers to cure rack timelines, burn-test evaluations, and unit cost calculations.",
   "color": "#463C36",
   "previews": [],
   "sections": 30,
@@ -30,7 +30,17 @@
     "large print binder",
     "printable workbook"
   ],
-  "gallery": [],
+  "gallery": [
+    "/catalog/soap-candle-cosmetic-batch-logbook/01-included.webp",
+    "/catalog/soap-candle-cosmetic-batch-logbook/02-cover.webp",
+    "/catalog/soap-candle-cosmetic-batch-logbook/03-contents.webp",
+    "/catalog/soap-candle-cosmetic-batch-logbook/04-workshop-safety-ppe-batch-prep-checklist.webp",
+    "/catalog/soap-candle-cosmetic-batch-logbook/05-cold-hot-process-soap-master-batch-sheet-1.webp",
+    "/catalog/soap-candle-cosmetic-batch-logbook/06-soap-cure-rack-weight-loss-ph-tracker.webp",
+    "/catalog/soap-candle-cosmetic-batch-logbook/07-candle-wax-melt-master-batch-pour-log.webp",
+    "/catalog/soap-candle-cosmetic-batch-logbook/08-candle-test-burn-wick-evaluation-log.webp",
+    "/catalog/soap-candle-cosmetic-batch-logbook/09-batch-cost-of-goods-sold-cogs-pricing-worksheet.webp"
+  ],
   "kind": "binder",
   "includes": [],
   "sourceSpec": "templates/workbooks/soap-candle-cosmetic-batch-logbook.yaml"

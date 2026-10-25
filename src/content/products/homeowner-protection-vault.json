@@ -31,7 +31,12 @@
     "large print binder",
     "printable bundle"
   ],
-  "gallery": [],
+  "gallery": [
+    "/catalog/homeowner-protection-vault/01-bundle.webp",
+    "/catalog/homeowner-protection-vault/02-estate-legacy-organizer-binder.webp",
+    "/catalog/homeowner-protection-vault/03-home-renovation-project-binder.webp",
+    "/catalog/homeowner-protection-vault/04-home-inventory-insurance-claim-emergency-evacuation-binder.webp"
+  ],
   "includes": [
     "when-im-gone-binder",
     "home-renovation-project-binder",

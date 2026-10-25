@@ -3,7 +3,7 @@
   "line": "binders",
   "title": "Homestead Food Preservation, Canning & Freeze-Drying Logbook",
   "subtitle": "Pressure & Water-Bath Canning Batch Logs, Freeze-Dryer Cycle Trackers, Dehydrating & Fermenting Sheets, and Pantry FIFO Inventory",
-  "description": "",
+  "description": "Building a safe, self-reliant working pantry requires exact record-keeping across every preservation method—from pressure-canner PSI and elevation adjustments to freeze-dryer tray weights, lacto-fermentation brine ratios, and First-In, First-Out (FIFO) shelf rotation.",
   "color": "#3E5A3C",
   "previews": [],
   "sections": 30,
@@ -30,7 +30,17 @@
     "large print binder",
     "printable workbook"
   ],
-  "gallery": [],
+  "gallery": [
+    "/catalog/homestead-preservation-logbook/01-included.webp",
+    "/catalog/homestead-preservation-logbook/02-cover.webp",
+    "/catalog/homestead-preservation-logbook/03-contents.webp",
+    "/catalog/homestead-preservation-logbook/04-pre-season-equipment-food-safety-checklist.webp",
+    "/catalog/homestead-preservation-logbook/05-pressure-canning-batch-psi-log.webp",
+    "/catalog/homestead-preservation-logbook/06-freeze-dryer-cycle-moisture-weight-log.webp",
+    "/catalog/homestead-preservation-logbook/07-deep-freezer-1-meat-poultry-wild-game-inventory.webp",
+    "/catalog/homestead-preservation-logbook/08-working-pantry-home-canned-goods-inventory.webp",
+    "/catalog/homestead-preservation-logbook/09-harvest-to-jar-yield-cost-calculator.webp"
+  ],
   "kind": "binder",
   "includes": [],
   "sourceSpec": "templates/workbooks/homestead-preservation-logbook.yaml"

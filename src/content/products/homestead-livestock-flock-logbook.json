@@ -3,7 +3,7 @@
   "line": "binders",
   "title": "Homestead Livestock, Backyard Flock & Small Farm Record Book",
   "subtitle": "Herd & Flock Registries, Breeding & Incubation Trackers, Egg & Dairy Yield Logs, Pasture Rotation Grids & Feed Expense Ledgers",
-  "description": "",
+  "description": "Managing a productive small-acreage farmstead—whether you are keeping laying hens, meat birds, dairy goats, sheep, rabbits, hogs, or honeybees—requires dependable records for lineage, breeding dates, feed conversion, and seasonal chore routines.",
   "color": "#8E3B2C",
   "previews": [],
   "sections": 30,
@@ -30,7 +30,17 @@
     "large print binder",
     "printable workbook"
   ],
-  "gallery": [],
+  "gallery": [
+    "/catalog/homestead-livestock-flock-logbook/01-included.webp",
+    "/catalog/homestead-livestock-flock-logbook/02-cover.webp",
+    "/catalog/homestead-livestock-flock-logbook/03-contents.webp",
+    "/catalog/homestead-livestock-flock-logbook/04-seasonal-barn-readiness-biosecurity-checklist.webp",
+    "/catalog/homestead-livestock-flock-logbook/05-master-herd-large-livestock-registry-goats-sheep-cattle-pigs.webp",
+    "/catalog/homestead-livestock-flock-logbook/06-breeding-heat-cycle-gestation-tracker.webp",
+    "/catalog/homestead-livestock-flock-logbook/07-egg-incubation-candling-hatch-batch-log.webp",
+    "/catalog/homestead-livestock-flock-logbook/08-monthly-egg-collection-flock-laying-log.webp",
+    "/catalog/homestead-livestock-flock-logbook/09-veterinary-treatment-vaccination-deworming-log-per-vet-label.webp"
+  ],
   "kind": "binder",
   "includes": [],
   "sourceSpec": "templates/workbooks/homestead-livestock-flock-logbook.yaml"

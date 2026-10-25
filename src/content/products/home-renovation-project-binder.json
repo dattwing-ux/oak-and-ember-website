@@ -36,7 +36,16 @@
     "house flipping",
     "diy home projects"
   ],
-  "gallery": [],
+  "gallery": [
+    "/catalog/home-renovation-project-binder/01-included.webp",
+    "/catalog/home-renovation-project-binder/02-cover.webp",
+    "/catalog/home-renovation-project-binder/03-contents.webp",
+    "/catalog/home-renovation-project-binder/04-master-budget-vs-actual-cost-tracker.webp",
+    "/catalog/home-renovation-project-binder/05-contractor-bid-comparison-matrix.webp",
+    "/catalog/home-renovation-project-binder/06-electrical-panel-circuit-breaker-directory.webp",
+    "/catalog/home-renovation-project-binder/07-paint-stain-color-schedule.webp",
+    "/catalog/home-renovation-project-binder/08-final-walkthrough-contractor-punch-list.webp"
+  ],
   "kind": "binder",
   "includes": [],
   "sourceSpec": "templates/workbooks/home-renovation-project-binder.yaml"

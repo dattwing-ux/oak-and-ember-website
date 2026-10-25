@@ -3,7 +3,7 @@
   "line": "binders",
   "title": "Family Genealogy, Ancestral Research & Archive Field Binder",
   "subtitle": "Pedigree Charts, Family Group Sheets, Census Extraction Matrices, Courthouse & Cemetery Field Logs, and Source Citation Trackers",
-  "description": "",
+  "description": "Tracing your family tree across generations requires disciplined record-keeping—whether you are comparing decennial census rolls, pulling probate packets at a county courthouse, transcribing weathered headstones in a rural cemetery, or interviewing older relatives.",
   "color": "#4E3550",
   "previews": [],
   "sections": 30,
@@ -30,7 +30,17 @@
     "large print binder",
     "printable workbook"
   ],
-  "gallery": [],
+  "gallery": [
+    "/catalog/family-genealogy-research-binder/01-included.webp",
+    "/catalog/family-genealogy-research-binder/02-cover.webp",
+    "/catalog/family-genealogy-research-binder/03-contents.webp",
+    "/catalog/family-genealogy-research-binder/04-four-generation-pedigree-lineage-chart.webp",
+    "/catalog/family-genealogy-research-binder/05-family-group-sheet-children-vital-events-roster.webp",
+    "/catalog/family-genealogy-research-binder/06-census-extraction-matrix-1850-1950-household-comparison.webp",
+    "/catalog/family-genealogy-research-binder/07-courthouse-archive-library-field-research-log.webp",
+    "/catalog/family-genealogy-research-binder/08-cemetery-row-plot-headstone-map-grid.webp",
+    "/catalog/family-genealogy-research-binder/09-genealogical-source-citation-proof-tracker.webp"
+  ],
   "kind": "binder",
   "includes": [],
   "sourceSpec": "templates/workbooks/family-genealogy-research-binder.yaml"

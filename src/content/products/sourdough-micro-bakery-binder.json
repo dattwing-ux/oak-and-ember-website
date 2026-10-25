@@ -3,7 +3,7 @@
   "line": "binders",
   "title": "Sourdough Micro-Bakery & Cottage Food Command Binder",
   "subtitle": "Bake-Day Production Timelines, Levain & Fermentation Logs, Oven Rotation Grids, Pre-Order Checklists & Cottage Law Trackers",
-  "description": "",
+  "description": "Running a weekend porch-pickup, farmstand, or cottage bakery requires tight coordination between wild yeast fermentation schedules, oven capacity, packaging laws, and customer pre-orders.",
   "color": "#7A4E2D",
   "previews": [],
   "sections": 30,
@@ -30,7 +30,17 @@
     "large print planner",
     "printable workbook"
   ],
-  "gallery": [],
+  "gallery": [
+    "/catalog/sourdough-micro-bakery-binder/01-included.webp",
+    "/catalog/sourdough-micro-bakery-binder/02-cover.webp",
+    "/catalog/sourdough-micro-bakery-binder/03-contents.webp",
+    "/catalog/sourdough-micro-bakery-binder/04-bake-day-readiness-kitchen-sanitation-checklist.webp",
+    "/catalog/sourdough-micro-bakery-binder/05-sourdough-batch-bulk-fermentation-log.webp",
+    "/catalog/sourdough-micro-bakery-binder/06-reverse-bake-day-production-timeline.webp",
+    "/catalog/sourdough-micro-bakery-binder/07-oven-capacity-deck-rotation-schedule.webp",
+    "/catalog/sourdough-micro-bakery-binder/08-porch-pickup-pre-order-fulfillment-roster.webp",
+    "/catalog/sourdough-micro-bakery-binder/09-monthly-cottage-law-revenue-cap-tracker.webp"
+  ],
   "kind": "binder",
   "includes": [],
   "sourceSpec": "templates/workbooks/sourdough-micro-bakery-binder.yaml"

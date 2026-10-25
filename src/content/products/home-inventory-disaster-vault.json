@@ -3,7 +3,7 @@
   "line": "binders",
   "title": "Home Inventory, Insurance Claim & Emergency Evacuation Binder",
   "subtitle": "Room-by-Room Asset & Serial Number Registries, Evacuation Grab Lists, Utility Shutoff Maps & Post-Disaster Claim Trackers",
-  "description": "",
+  "description": "When a wildfire warning, hurricane, severe storm, or plumbing failure strikes, having an organized, pre-documented record of your household property and emergency procedures saves critical time and stress.",
   "color": "#6B2E2E",
   "previews": [],
   "sections": 30,
@@ -30,7 +30,17 @@
     "large print binder",
     "printable workbook"
   ],
-  "gallery": [],
+  "gallery": [
+    "/catalog/home-inventory-disaster-vault/01-included.webp",
+    "/catalog/home-inventory-disaster-vault/02-cover.webp",
+    "/catalog/home-inventory-disaster-vault/03-contents.webp",
+    "/catalog/home-inventory-disaster-vault/04-15-60-minute-emergency-evacuation-checklist.webp",
+    "/catalog/home-inventory-disaster-vault/05-property-utility-shutoffs-safety-map.webp",
+    "/catalog/home-inventory-disaster-vault/06-kitchen-major-appliances-serial-number-log.webp",
+    "/catalog/home-inventory-disaster-vault/07-high-value-items-scheduled-rider-registry.webp",
+    "/catalog/home-inventory-disaster-vault/08-post-disaster-property-damage-assessment-log.webp",
+    "/catalog/home-inventory-disaster-vault/09-insurance-claim-adjuster-communication-tracker.webp"
+  ],
   "kind": "binder",
   "includes": [],
   "sourceSpec": "templates/workbooks/home-inventory-disaster-vault.yaml"
