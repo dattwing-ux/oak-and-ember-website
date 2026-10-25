@@ -6,7 +6,8 @@ Live at https://oakandemberpress.com once provisioned; see `infra/PROVISION.md`.
 ## Run it
 ```bash
 npm ci
-npm run sync-catalog -- --pipeline ../ebook-pipeline   # regenerate src/content/products from the binder specs
+npm run sync-catalog   # regenerate src/content/products + public/catalog from the pipeline next door
+                       # (../ebook-pipeline or ../ebook-pipeline-local; else --pipeline <path>)
 npm run dev                                            # http://localhost:4321
 npm run build && npm run preview
 ```
@@ -26,4 +27,7 @@ npm run build && npm run preview
 | `docs/DESIGN_BRIEF.md` | Direction, rationale, site map, milestones. `docs/concept/` is the static concept it came from. |
 
 ## Adding a product's gallery
-Run the pipeline so `output/<run>/previews/*.png` exists, then `npm run sync-catalog`. Cards are copied into `public/catalog/<slug>/` and the product page uses them.
+Run the pipeline so `output/<run>/previews/*.png` exists, then `npm run sync-catalog` on the machine that has the
+pipeline's `output/` (the owner's PC: `E:\oak-and-ember-website` beside `E:\ebook-pipeline-local`). The newest finished
+run of each spec is used; its numbered cards are written to `public/catalog/<slug>/` as 1600-px WebP. Commit
+`src/content/products` and `public/catalog`, then push to `main` to deploy.

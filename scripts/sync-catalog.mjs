@@ -4,14 +4,23 @@
 // each spec (state/runs/*/run.json) and are copied to public/catalog/<slug>/ as WebP.
 // The pipeline stays the single source of truth.
 //
-//   node scripts/sync-catalog.mjs [--pipeline ../ebook-pipeline]
+//   node scripts/sync-catalog.mjs [--pipeline <path>]
+// Without --pipeline or PIPELINE_DIR it uses the first sibling checkout that has specs:
+// ../ebook-pipeline, then ../ebook-pipeline-local (the owner's E: drive layout).
 import { readdir, readFile, writeFile, mkdir, rm, stat } from 'node:fs/promises';
 import { join, basename, resolve } from 'node:path';
 import sharp from 'sharp';
 import { parse } from 'yaml';
 
+const SIBLING_PIPELINES = ['../ebook-pipeline', '../ebook-pipeline-local'];
 const args = process.argv.slice(2);
-const pipeline = resolve(args[args.indexOf('--pipeline') + 1] || process.env.PIPELINE_DIR || '../ebook-pipeline');
+const flag = args.indexOf('--pipeline');
+const given = (flag >= 0 && args[flag + 1]) || process.env.PIPELINE_DIR;
+let pipeline = given ? resolve(given) : null;
+for (const p of given ? [] : SIBLING_PIPELINES) {
+  if (await exists(join(resolve(p), 'templates', 'workbooks'))) { pipeline = resolve(p); break; }
+}
+pipeline ??= resolve(SIBLING_PIPELINES[0]);
 const specsDir = join(pipeline, 'templates', 'workbooks');
 const bundlesDir = join(pipeline, 'templates', 'bundles');
 const outDir = resolve('src/content/products');
