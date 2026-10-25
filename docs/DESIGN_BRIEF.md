@@ -139,7 +139,7 @@ Domain: `oakandemberpress.com` (owned). Email on the domain is part of M4; see `
 | M1 ✅ | Astro scaffold, tokens, fonts, ember layer as a persistent island, bottom nav, four-stage scroller | Done 2026-10-24: 14 pages build, phone walk-through clean |
 | M2 ◐ | `sync-catalog`, shop index, product pages for all 8 binders with real gallery cards | Pages and sync done; gallery cards land when `sync-catalog` runs beside a pipeline `output/`; Etsy links when the shop opens |
 | M3 | Recipe packs index, Studio and About holding pages, newsletter form, hue-per-page | Full v1 content |
-| M4 ◐ | OCI VM, Caddy, GitHub Actions deploy, DNS, HTTPS, domain email | Code and runbook done (`infra/`); owner runs the console steps |
+| M4 ✅ | Existing OCI VM, nginx + certbot, GitHub Actions deploy, Cloudflare DNS, HTTPS | Live at https://oakandemberpress.com on 2026-10-25. Remaining: Cloudflare proxy on + Full (strict), Email Routing |
 | M5 | OG images, sitemap, Product structured data, Plausible, perf pass | Shared links look right on Pinterest/Instagram |
 
 ## 9. Open questions for the owner
