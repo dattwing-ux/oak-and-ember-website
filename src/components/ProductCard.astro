@@ -11,7 +11,7 @@ const p = product.data;
   <div class="meta">
     <b>{p.title}</b>
     <span>{p.subtitle}</span>
-    <small>{p.sizes.join(' · ')} · {p.editions.join(' · ')}</small>
+    <small>{p.kind === 'bundle' ? `Bundle · ${p.includes.length} binders` : `${p.sizes.join(' · ')} · ${p.editions.join(' · ')}`}</small>
   </div>
 </a>
 <style>

@@ -31,5 +31,7 @@
     "printable workbook"
   ],
   "gallery": [],
+  "kind": "binder",
+  "includes": [],
   "sourceSpec": "templates/workbooks/homestead-livestock-flock-logbook.yaml"
 }

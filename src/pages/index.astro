@@ -5,7 +5,7 @@ import TrustStrip from '../components/TrustStrip.astro';
 import LinesRow from '../components/LinesRow.astro';
 import ProductCard from '../components/ProductCard.astro';
 import { getCollection } from 'astro:content';
-const featured = (await getCollection('products')).sort((a, b) => a.data.title.localeCompare(b.data.title)).slice(0, 4);
+const featured = (await getCollection('products')).sort((a, b) => (b.data.kind === 'bundle' ? 1 : 0) - (a.data.kind === 'bundle' ? 1 : 0) || a.data.title.localeCompare(b.data.title)).slice(0, 4);
 ---
 <Base nav="home" glow="#E8A33D">
   <Scroller />

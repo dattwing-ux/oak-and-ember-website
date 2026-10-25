@@ -1,0 +1,41 @@
+{
+  "slug": "homeowner-protection-vault",
+  "line": "binders",
+  "kind": "bundle",
+  "title": "Complete Homeowner's Protection Vault",
+  "subtitle": "Estate & Legacy Organizer + Home Renovation Project Binder + Home Inventory & Emergency Evacuation Binder",
+  "description": "Three printable binders that keep your family's legacy plans, home projects, and property and emergency records organized in one place.",
+  "color": "#8F7442",
+  "previews": [],
+  "sections": 0,
+  "sizes": [
+    "Letter",
+    "A4"
+  ],
+  "editions": [
+    "Standard",
+    "Large print"
+  ],
+  "tags": [
+    "homeowner binder",
+    "home binder bundle",
+    "estate planning",
+    "renovation planner",
+    "home inventory log",
+    "emergency binder",
+    "insurance claim log",
+    "household binder",
+    "legacy binder",
+    "family records",
+    "home organizer",
+    "large print binder",
+    "printable bundle"
+  ],
+  "gallery": [],
+  "includes": [
+    "when-im-gone-binder",
+    "home-renovation-project-binder",
+    "home-inventory-disaster-vault"
+  ],
+  "sourceSpec": "templates/bundles/homeowner-protection-vault.yaml"
+}

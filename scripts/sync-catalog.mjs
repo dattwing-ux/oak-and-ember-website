@@ -11,6 +11,7 @@ import { parse } from 'yaml';
 const args = process.argv.slice(2);
 const pipeline = resolve(args[args.indexOf('--pipeline') + 1] || process.env.PIPELINE_DIR || '../ebook-pipeline');
 const specsDir = join(pipeline, 'templates', 'workbooks');
+const bundlesDir = join(pipeline, 'templates', 'bundles');
 const outDir = resolve('src/content/products');
 const publicDir = resolve('public/catalog');
 
@@ -58,9 +59,36 @@ for (const f of files) {
     editions: ['Standard', 'Large print'],
     tags: Array.isArray(spec.seo?.tags) ? spec.seo.tags.map(String) : [],
     gallery,
+    kind: 'binder',
+    includes: [],
     sourceSpec: `templates/workbooks/${f}`,
   };
   await writeFile(join(outDir, `${slug}.json`), JSON.stringify(product, null, 2) + '\n');
   written++;
+}
+
+// Bundles: several finished binders sold as one listing (steps/bundle.py). Gallery from output/bundles/<product>/previews.
+if (await exists(bundlesDir)) {
+  for (const f of (await readdir(bundlesDir)).filter(f => /\.ya?ml$/.test(f))) {
+    const spec = parse(await readFile(join(bundlesDir, f), 'utf8'));
+    const slug = String(spec.product || basename(f).replace(/\.ya?ml$/, '')).toLowerCase();
+    const gallery = [];
+    const prev = join(pipeline, 'output', 'bundles', slug, 'previews');
+    if (await exists(prev)) {
+      const cards = (await readdir(prev)).filter(c => /\.(png|jpe?g|webp)$/i.test(c)).sort();
+      if (cards.length) { await mkdir(join(publicDir, slug), { recursive: true }); for (const c of cards) { await copyFile(join(prev, c), join(publicDir, slug, c)); gallery.push(`/catalog/${slug}/${c}`); } }
+    }
+    const product = {
+      slug, line: 'binders', kind: 'bundle',
+      title: String(spec.title || slug), subtitle: String(spec.subtitle || ''), description: String(spec.description || '').trim(),
+      color: String(spec.cover?.color || '#8F7442'),
+      previews: [], sections: 0, sizes: ['Letter', 'A4'], editions: ['Standard', 'Large print'],
+      tags: Array.isArray(spec.seo?.tags) ? spec.seo.tags.map(String) : [],
+      gallery, includes: Array.isArray(spec.specs) ? spec.specs.map(String) : [],
+      sourceSpec: `templates/bundles/${f}`,
+    };
+    await writeFile(join(outDir, `${slug}.json`), JSON.stringify(product, null, 2) + '\n');
+    written++;
+  }
 }
 console.log(JSON.stringify({ ok: true, products: written, gallery_dirs: (await exists(publicDir)) ? (await readdir(publicDir)).length : 0 }));

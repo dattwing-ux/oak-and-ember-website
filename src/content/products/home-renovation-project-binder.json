@@ -37,5 +37,7 @@
     "diy home projects"
   ],
   "gallery": [],
+  "kind": "binder",
+  "includes": [],
   "sourceSpec": "templates/workbooks/home-renovation-project-binder.yaml"
 }

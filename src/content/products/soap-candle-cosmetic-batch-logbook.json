@@ -31,5 +31,7 @@
     "printable workbook"
   ],
   "gallery": [],
+  "kind": "binder",
+  "includes": [],
   "sourceSpec": "templates/workbooks/soap-candle-cosmetic-batch-logbook.yaml"
 }

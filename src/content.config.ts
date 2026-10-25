@@ -8,6 +8,8 @@ const products = defineCollection({
   schema: z.object({
     slug: z.string(),
     line: z.enum(['binders', 'planners', 'recipes', 'studio']),
+    kind: z.enum(['binder', 'bundle']).default('binder'),
+    includes: z.array(z.string()).default([]),   // bundle: slugs of the binders inside
     title: z.string(),
     subtitle: z.string().default(''),
     description: z.string().default(''),

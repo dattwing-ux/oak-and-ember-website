@@ -142,7 +142,18 @@ Domain: `oakandemberpress.com` (owned). Email on the domain is part of M4; see `
 | M4 ✅ | Existing OCI VM, nginx + certbot, GitHub Actions deploy, Cloudflare DNS, HTTPS | Live at https://oakandemberpress.com on 2026-10-25. Remaining: Cloudflare proxy on + Full (strict), Email Routing |
 | M5 | OG images, sitemap, Product structured data, Plausible, perf pass | Shared links look right on Pinterest/Instagram |
 
-## 9. Open questions for the owner
+## 9. Email capture (ready to wire once a provider is chosen)
+
+Gemini's review (2026-10-25) is right that a generic signup converts poorly and a free printable
+converts well. Copy for the home-page and Studio forms, to switch on when Buttondown/MailerLite exists:
+
+> **Free sample pack: Emergency Utility Shutoff & Vital Documents.**
+> Two printable pages from the Home Inventory binder, Letter and A4. Join the list and they're yours;
+> new binders and bundle discounts follow, about once a month.
+
+Until a provider exists the live site shows no non-working form. The Studio waitlist confirms locally only.
+
+## 10. Open questions for the owner
 
 1. Direction confirmed?
 2. Etsy shop URL once the shop exists (for Buy buttons) and whether direct sales are v1 or v2.
